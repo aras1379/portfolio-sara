@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
 
-/* 
-  CUSTOM ANIMATIONS
-  These create smooth entrance effects when elements load
-*/
+/*CUSTOM ANIMATIONS*/
 
 /* Fade in and slide up animation */
 @keyframes fadeInUp {
@@ -26,19 +23,15 @@
 /* Animation delays for staggered effects */
 .animation-delay-300 {
   animation-delay: 0.3s;
-  opacity: 0; /* Start invisible until animation begins */
+  opacity: 0; /* Start invisible  */
 }
 
 .animation-delay-600 {
   animation-delay: 0.6s;
-  opacity: 0; /* Start invisible until animation begins */
+  opacity: 0; /* Start invisible */
 }
 
-/* 
-  SCROLL ANIMATIONS
-  These trigger when elements come into view
-  You can add these classes with JavaScript intersection observer
-*/
+/* SCROLL ANIMATIONS -These trigger when elements come into view */
 .scroll-animate {
   opacity: 0;
   transform: translateY(50px);
@@ -50,10 +43,7 @@
   transform: translateY(0);
 }
 
-/* 
-  HOVER EFFECTS
-  Additional smooth hover effects beyond Tailwind defaults
-*/
+/* HOVER EFFECTS */
 .card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -63,10 +53,7 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* 
-  RESPONSIVE UTILITIES
-  Custom responsive utilities for better mobile experience
-*/
+/* RESPONSIVE UTILITIES*/
 @media (max-width: 768px) {
   .mobile-padding {
     padding-left: 1rem;
@@ -74,10 +61,7 @@
   }
 }
 
-/* 
-  SMOOTH SCROLLING
-  Makes navigation smoother when clicking internal links
-*/
+/* SMOOTH SCROLLING*/
 html {
   scroll-behavior: smooth;
 }

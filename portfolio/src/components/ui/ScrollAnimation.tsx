@@ -20,8 +20,8 @@ export const ScrollAnimation = ({
 }: ScrollAnimationProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { 
-    once: true, // Animation only happens once
-    amount: 0.3 // Trigger when 30% of element is visible
+    once: true, // animation only once 
+    amount: 0.3 // trigger when 30% of element is appearing
   });
 
   const directions = {
