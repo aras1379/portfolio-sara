@@ -9,6 +9,12 @@ export default async function ProjectsPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8 text-black">My Skills</h1>
+
+        <SkillsSection
+          title="My Technical Expertise"
+          className="bg-gray-50 mb-16"
+        />
         <h2 className="text-2xl font-bold mb-8 text-black">
           Featured Projects
         </h2>

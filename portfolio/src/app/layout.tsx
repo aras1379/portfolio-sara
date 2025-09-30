@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { Inter } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +12,14 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+const robotoFlex = Roboto_Flex({
+  variable: "--font-roboto-flex",
   subsets: ["latin"],
 });
 
@@ -25,53 +35,54 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+       <body className={`${robotoFlex.variable} antialiased`}>
         {/* NAVIGATION BAR */}
-        <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex justify-between items-center h-16">
-              {/* Logo/Name*/}
-              <Link href="/" className="text-xl font-bold text-gray-900">
-                Sara's Portfolio
-              </Link>
+ <div className="fixed top-0 left-0 right-0 h-16 bg-emerald-950 z-30"></div>
 
-              {/* Navigation Links  */}
-              <div className="hidden md:flex space-x-8">
-                <Link
-                  href="/"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/projects"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  Projects
-                </Link>
-                <Link
-                  href="/cv"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  CV
-                </Link>
-                <Link
-                  href="/contact"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  Contact
-                </Link>
-              </div>
+  {/* NAVIGATION BAR - text only, no background */}
+  <nav className="fixed top-0 left-0 right-0 z-50">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="flex justify-between items-center h-16">
+        {/* Logo/Name*/}
+        <Link href="/" className="text-xl font-bold text-white">
+          Sara's Portfolio
+        </Link>
 
-              {/* Mobile menu button */}
-              <div className="md:hidden">
-                <button className="text-gray-700">☰</button>
-              </div>
-            </div>
-          </div>
-        </nav>
+        {/* Navigation Links  */}
+        <div className="hidden md:flex space-x-8">
+          <Link
+            href="/"
+            className="text-white hover:text-blue-400 transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            href="/projects"
+            className="text-white hover:text-blue-400 transition-colors"
+          >
+            Projects
+          </Link>
+          <Link
+            href="/cv"
+            className="text-white hover:text-blue-400 transition-colors"
+          >
+            CV
+          </Link>
+          <Link
+            href="/contact"
+            className="text-white hover:text-blue-400 transition-colors"
+          >
+            Contact
+          </Link>
+        </div>
+
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <button className="text-white">☰</button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
         {/* MAIN CONTENT AREA */}
         <main className="pt-16 min-h-screen">
