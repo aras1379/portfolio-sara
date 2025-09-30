@@ -1,20 +1,31 @@
 // skills chart and projects
+
 import { getProjects } from "@/lib/projects";
 import SkillsSection from "@/components/sections/SkillsSection";
 import Link from "next/link";
 
+import SkillsBars from "@/components/sections/SkillsBars";
+import ClientAuroraWrapper from "@/components/sections/AuroraWrapper";
+
 export default async function ProjectsPage() {
   const projects = await getProjects();
+  
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-black">My Skills</h1>
+    <div className="bg-emerald-950 relative">
+       <ClientAuroraWrapper />
 
-        <SkillsSection
-          title="My Technical Expertise"
-          className="bg-gray-50 mb-16"
-        />
+        <header className="text-center mb-16 relative z-[30] pt-17">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            Sara Ljung
+          </h1>
+          </header>
+      <div className="relative max-w-6xl mx-auto px-4 py-8 mb-16 relative z-[30]">
+
+
+        <SkillsBars></SkillsBars>
+
+    
         <h2 className="text-2xl font-bold mb-8 text-black">
           Featured Projects
         </h2>
