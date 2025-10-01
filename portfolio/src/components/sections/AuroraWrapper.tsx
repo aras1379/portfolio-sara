@@ -31,8 +31,8 @@ export default function ClientAuroraWrapper() {
     <div className="fixed inset-0 pointer-events-none z-[30]">
       <Aurora
         colorStops={colorStops}
-        blend={0.5}
-        amplitude={1.0}
+        blend={1.1}
+        amplitude={0.1}
         speed={0.5}
       />
     </div>

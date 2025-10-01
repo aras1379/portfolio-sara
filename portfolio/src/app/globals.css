@@ -212,6 +212,66 @@ html {
   --aurora-color-3: #A6B28B;
 }
 
+.dark-pink {
+  --background: rgb(136, 158, 115);
+  --foreground: rgb(169 74 74); 
+
+  --primary: rgb(136 158 115);
+  --primary-foreground: rgb(28 53 45);
+
+  --secondary: rgb(169 74 74); 
+  --secondary-foreground: rgb(255 246 218);
+
+  --accent: rgb(136 158 115);
+  --accent-foreground: rgb(28 53 45);
+
+  --card: rgb(169 74 74); 
+  --card-foreground: rgb(255 246 218);
+
+  --muted: rgb(243 244 246); /* gray-100 */
+  --muted-foreground: rgb(107 114 128); /* gray-500 */
+
+  --border: rgb(166 178 139);
+  --input: rgb(166 178 139);
+  --ring: rgb(28 53 45);
+
+  /* Aurora Background Colors */
+  --aurora-color-1: #f1d697;
+  --aurora-color-2: #f7da8b;
+  --aurora-color-3: #f2a589;
+}
+
+.dark-pink2 {
+  --background: rgb(244, 224, 175);
+  --foreground: rgb(249, 192, 171);
+
+  --primary: rgb(168, 205, 137);
+  --primary-foreground: rgb(28 53 45);
+
+  --secondary: rgb(249, 192, 171);
+  --secondary-foreground: rgb(53, 95, 46);
+
+  --accent: rgb(168, 205, 137);
+  --accent-foreground: rgb(28 53 45);
+
+  --card: rgb(183, 215, 161);
+  --card-foreground: rgb(53, 95, 46);
+
+  --muted: rgb(243 244 246); /* gray-100 */
+  --muted-foreground: rgb(107 114 128); /* gray-500 */
+
+  --border: rgb(166 178 139);
+  --input: rgb(166 178 139);
+  --ring: rgb(28 53 45);
+
+  /* Aurora Background Colors */
+  --aurora-color-1: #F9C0AB;
+  --aurora-color-2: #A8CD89;
+  --aurora-color-3: #355F2E;
+}
+
+
+
 .light {
   /* This class is now redundant since its values are in :root, but we can keep it for testing */
   --background: rgb(5 46 22); /* emerald-950 */
