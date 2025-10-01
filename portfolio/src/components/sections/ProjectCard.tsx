@@ -1,15 +1,22 @@
 import Link from 'next/link';
 import { Project } from '@/types/project';
+import { getSkillById, mySkills } from '@/lib/skills';
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  // Get main technologies 
-  const mainTech = project.techStack
-    .filter(tech => tech.category === 'frontend' || tech.category === 'backend')
-    .slice(0, 3);
+  // Get main technologies by resolving skill IDs
+  const mainTech = project.techStack.map(id => getSkillById(id))
+    .filter(skill => {
+      if (!skill) return false;
+      // Check which category the skill belongs to
+      return mySkills.some(category => 
+        (category.label === 'Frontend' || category.label === 'Backend') && 
+        category.skills.some(s => s.id === skill.id)
+      );
+    }).slice(0, 3);
 
   return (
     <Link href={`/projects/${project.slug}`}>
@@ -40,8 +47,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {/* tech stack previow */}
           <div className="flex flex-wrap gap-2 mb-4">
             {mainTech.map(tech => (
-              <span key={tech.name} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-                {tech.name}
+              tech && <span key={tech.id} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
+                {tech.label}
               </span>
             ))}
             {project.techStack.length > 3 && (

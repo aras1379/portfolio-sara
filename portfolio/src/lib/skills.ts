@@ -1,129 +1,53 @@
 // Skills
 
-export interface SkillCategory {
+export interface Skill{
+  id: string;
   label: string;
   proficiency: number;
-  technologies: string[];
+
+}
+export interface SkillCategory {
+  label: string;
   color: string;
+  skills: Skill[];
   projects?: string[];
 }
+
+// /data/skills.ts
 
 export const mySkills: SkillCategory[] = [
   {
     label: 'Frontend',
-    proficiency: 40, 
-    technologies: [
-      'React', 
-      'Next.js', 
-      'Node.js',
-      'TypeScript', 
-      'Tailwind CSS', 
-      'Svelte',
-      'CSS'
+    color: 'bg-blue-500',
+    skills: [
+      { id: 'react', label: 'React', proficiency: 40 },
+      { id: 'next-js', label: 'Next.js', proficiency: 45 },
+      { id: 'typescript', label: 'TypeScript', proficiency: 35 },
+      { id: 'tailwind-css', label: 'Tailwind CSS', proficiency: 45 },
+      { id: 'swift', label: 'Swift', proficiency: 55 }, // Added from your project
     ],
-    color: 'rgba(59, 130, 246, 0.6)', 
-    projects: [
-      'Personal Portfolio Website',
-      'Jönköpings City Website',
-      'Earlier portfolios',
-
-    ]
   },
   {
     label: 'Backend',
-    proficiency: 50,
-    technologies: [
-        'Python', 
-        'C++',
-        'TypeScript',
-        'JavaScript',
-        'Node.js', 
-        'Express.js', 
-        'FastAPI',
-        'REST APIs',
-        'WebSockets',
+    color: 'bg-green-500',
+    skills: [
+      { id: 'node-js', label: 'Node.js', proficiency: 40 },
+      { id: 'python', label: 'Python', proficiency: 55 },
     ],
-    color: 'rgba(16, 185, 129, 0.6)', 
-    projects: [
-      'Thesis with statistical analysis in Python',
-      'Inventory API',
-      'Real-time communication robot-mobile',
-      'Tic Tac Toe game'
-    ]
   },
   {
-    label: 'Database',
-    proficiency: 30,
-    technologies: [
-      'SQLite', 
-      'MongoDB', 
+    label: 'Tools & DevOps',
+    color: 'bg-gray-500',
+    skills: [
+      { id: 'git', label: 'Git & GitHub', proficiency: 70 },
+      { id: 'docker', label: 'Docker', proficiency: 35 },
+      { id: 'figma', label: 'Figma', proficiency: 60 },
     ],
-    color: 'rgba(245, 158, 11, 0.6)', 
-    projects: [
-      'Inventory database',
-      'Analytics Dashboard',
-      'User Data Analytics'
-    ]
   },
-  {
-    label: 'DevOps',
-    proficiency: 35,
-    technologies: [
-      'Docker', 
-      'Locust', 
-      'Selenium', 
-      'GitHub Actions', 
-      'CI/CD Pipelines',
-      'Kubernetes',
-    ],
-    color: 'rgba(239, 68, 68, 0.6)', 
-    projects: [
-      'Automated Deployment Pipeline',
-      'Cloud Infrastructure Setup',
-      'Container Orchestration',
-      'Performance Monitoring'
-    ]
-  },
-  {
-    label: 'Mobile',
-    proficiency: 60,
-    technologies: [
-      'React Native', 
-      'Expo', 
-      'Flutter', 
-      'iOS Development', 
-      'Android',
-    ],
-    color: 'rgba(168, 85, 247, 0.6)', 
-    projects: [
-        'Recipe App with AI integration',
-        'Cross-platform Mobile App',
-        'Native Feature Integration',
-        'Mobile game with real users gameplay',
-        'Recipe App with AI integration',
-        'Electric Car Charging App for whole working system'
-    ]
-  },
-  {
-    label: 'Design & UI/UX',
-    proficiency: 40,
-    technologies: [
-      'Figma', 
-      'UI/UX Design', 
-      'Prototyping', 
-      'User Research',
-      'Accessibility',
-      'Design Systems'
-    ],
-    color: 'rgba(236, 72, 153, 0.6)', 
-    projects: [
-      'Flowchart and design for University Project (Knowit)',
-      'User Experience Research',
-      'Mobile App Redesign',
-      'Accessibility Improvements'
-    ]
-  }
 ];
+
+
+
 
 // Skills grouped by category
 export const skillCategories = {
@@ -138,14 +62,24 @@ export const skillCategories = {
   ]
 };
 
-// Helper function to get skills by proficiency level
-export const getSkillsByLevel = (minLevel: number = 80) => {
-  return mySkills.filter(skill => skill.proficiency >= minLevel);
+const allSkills = mySkills.flatMap((category) => category.skills);
+
+export const SKILLS_MAP = new Map<string, Skill>(
+  allSkills.map((skill) => [skill.id, skill])
+);
+
+// Helper function to easily get a skill's data by its ID
+export const getSkillById = (id: string): Skill | undefined => {
+  return SKILLS_MAP.get(id);
 };
 
-// Helper function to get all technologies
-export const getAllTechnologies = () => {
-  return mySkills.reduce((acc, skill) => {
-    return [...acc, ...skill.technologies];
-  }, [] as string[]);
+// Helper function to get the average proficiency for a skill category
+export const getAverageProficiencyByCategory = (categoryLabel: string): number => {
+  const category = mySkills.find(cat => cat.label === categoryLabel);
+  if (!category || category.skills.length === 0) {
+    return 0;
+  }
+
+  const totalProficiency = category.skills.reduce((sum, skill) => sum + skill.proficiency, 0);
+  return Math.round(totalProficiency / category.skills.length);
 };

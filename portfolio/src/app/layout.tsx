@@ -34,10 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
        <body className={`${robotoFlex.variable} antialiased`}>
         {/* NAVIGATION BAR */}
- <div className="fixed top-0 left-0 right-0 h-16 bg-emerald-950 z-30"></div>
+ <div className="fixed top-0 left-0 right-0 h-16 bg-background z-30"></div>
 
   {/* NAVIGATION BAR - text only, no background */}
   <nav className="fixed top-0 left-0 right-0 z-50">

@@ -1,6 +1,7 @@
 //Single project cards
 
 import { getProject, getProjects } from "@/lib/projects";
+import { getSkillById } from "@/lib/skills";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -107,14 +108,17 @@ export default async function ProjectPage({
                 Tech Stack
               </h3>
               <div className="space-y-2">
-                {project.techStack.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="bg-gray-50 px-3 py-2 rounded text-sm font-medium text-gray-700"
-                  >
-                    {tech.name}
-                  </div>
-                ))}
+                {project.techStack.map((skillId) => {
+                  const skill = getSkillById(skillId);
+                  return skill ? (
+                    <div
+                      key={skill.id}
+                      className="bg-gray-50 px-3 py-2 rounded text-sm font-medium text-gray-700"
+                    >
+                      {skill.label}
+                    </div>
+                  ) : null;
+                })}
               </div>
             </div>
 

@@ -9,21 +9,11 @@ const projects: Project[] = [
     title: 'Mower with Application',
     description: 'Backend communication between App and Embedded, and Mobile application to steer robot.',
     fullDescription: 'Project in collaboration with Husqvarna where we developed a lawn-mower. I worked in both mobile- and backend to enable communication between robot and app, as well as image processing. ',
-    techStack: [
-      {
-        category: 'frontend',
-        name: 'Swift',
-        purpose: 'Mobile Application with controller, both front- and backend'
-      },
-      {
-        category: 'backend',
-        name: 'Python',
-        purpose: 'Backend with WebSockets communication, Image handeling and AI (API) processing of images from camera on the mower.'
-      },
-    ],
+
+    techStack: ['swift', 'python'], // <-- Reference skills by ID
     features: [
       'Mobile Application Development',
-      'Backend communication Embedded - Mobile',
+      'Backend communication between Embedded and Mobile',
       'Agile group work',
       'Testing'
     ],
@@ -52,37 +42,20 @@ const projects: Project[] = [
     slug: 'fem-food-app',
     title: 'Women Health Food App',
     description: 'Backend communication between App and Embedded, and Mobile application to steer robot.',
-    fullDescription: 'Project in collaboration with Husqvarna where we developed a lawn-mower. I worked in both mobile- and backend to enable communication between robot and app, as well as image processing. ',
-    techStack: [
-      {
-        category: 'frontend',
-        name: 'React Native',
-        purpose: 'Mobile App'
-      },
-      {
-        category: 'backend',
-        name: 'TypeScript',
-        purpose: 'Backend with API calls, LLM communication.'
-      },
-      {
-        category: 'backend',
-        name: 'Llama 3',
-        purpose: 'Local LLM for security and managability.'
-      },
-      {
-        category: 'database',
-        name: 'SQLite',
-        purpose: 'Database'
-      },
-      {
-        category: 'testing',
-        name: 'Testing',
-        purpose: 'CI/CD testing pipeline.'
-      },
-    ],
+
+    fullDescription: 'App tracking menstrual cycle with local LLM for secure recommendations.',
+        techStack: ['react-native', 'typescript', 'sqlite'], // <-- Use the IDs
+     
+    
+
+
+
+
+
+
     features: [
       'Mobile Application Development',
-      'Backend communication Embedded - Mobile',
+      'Backend communication between Embedded and Mobile',
       'Agile group work',
       'Testing'
     ],
@@ -115,4 +88,4 @@ export async function getProjects(): Promise<Project[]>{
 
 export async function getProject(slug: string): Promise<Project | undefined>{
     return projects.find(project=>project.slug==slug);
-}
+};

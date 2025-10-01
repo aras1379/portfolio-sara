@@ -1,10 +1,4 @@
 // PROJECT DATA
-export interface TechStack {
-  category: 'frontend' | 'backend' | 'database' | 'devops' | 'mobile' | 'design' | 'testing';
-  name: string;
-  version?: string;
-  purpose: string; 
-}
 
 export interface Project {
   id: string;
@@ -12,7 +6,7 @@ export interface Project {
   title: string;
   description: string;
   fullDescription: string; 
-  techStack: TechStack[];
+  techStack: string[];
   features: string[];
   challenges: string[];
   learnings: string[];
