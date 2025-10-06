@@ -16,6 +16,7 @@ import ClientGradientWrapper from "@/components/sections/WrapperClient";
 import ShapeBlur from "@/components/ui/ShapeBlur";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import { annotate } from 'rough-notation';
+import FadeContent from "@/components/ui/FadeContent";
 
 import {
   ScrollAnimation,
@@ -140,11 +141,11 @@ useEffect(() => {
         </div>
 
         {/* ROW 2 - Tagline */}
-        <div className="mb-40">
+        <div className="mb-4">
           <div className="text-1xl md:text-1xl lg:text-2xl flex">
             <TextType
               text={["I build things with code"]}
-              typingSpeed={120}
+              typingSpeed={30}
               pauseDuration={1000}
               showCursor={true}
               cursorCharacter=""
@@ -153,26 +154,42 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* ROW 3 - CTA Section */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Link
-              href="/projects"
-              className="inline-block border-2 border-white bg-white text-background px-8 py-4 rounded-lg font-semibold hover:bg-primary transition-all duration-300 hover:scale-105"
-            >
-              About Sara
-            </Link>
-          </div>
-
-          <div>
-            <Link
-              href="/projects"
-              className="inline-block border-2 border-white bg-white text-background px-10 py-4 rounded-lg font-semibold hover:bg-primary transition-all duration-300 hover:scale-105"
-            >
-              Read CV
-            </Link>
+        {/* ROW 2 - Tagline */}
+        <div className="mb-20">
+          <div className="text-1xl md:text-1xl lg:text-1xl flex">
+            <FadeContent blur={true} duration={1000} easing="ease-out" delay={3000} initialOpacity={0}>
+ <h2 className="text-1xl text-primary-foreground leading-relaxed">Recently graduated Data Engineer in Software Development and Mobile Applications, who enjoyes programming both work-wise and private. I'm a detail-oriented person who learns fast and striving towards making stuff more efficient while always trying to do my very best.</h2>
+</FadeContent>
+      
           </div>
         </div>
+
+        {/* ROW 3 - CTA Section */}
+         <FadeContent blur={true} duration={1000} easing="ease-out" delay={3000} initialOpacity={0}>
+        <div className="grid grid-cols-3 gap-4">
+        <Link
+  href="/projects"
+  className="w-31 h-31 flex items-center justify-center rounded-full border-2 border-white bg-white text-center text-background hover:bg-primary transition-all duration-300 hover:scale-105"
+>
+  <span>Project <br/>Portfolio</span>
+  
+</Link>
+          
+
+          <Link
+    href="/projects"
+className="w-31 h-31 flex items-center justify-center rounded-full border-2 border-white bg-white text-center text-background hover:bg-primary transition-all duration-300 hover:scale-105"  >
+    Read CV
+  </Link>
+
+          <Link
+    href="/projects"
+className="w-31 h-31 flex items-center justify-center rounded-full border-2 border-white bg-white text-center text-background hover:bg-primary transition-all duration-300 hover:scale-105"  >
+    About Sara
+  </Link>
+        </div>
+        </FadeContent>
+        
       </div>
 
       {/* RIGHT COLUMN - Image */}
@@ -268,7 +285,7 @@ useEffect(() => {
       {/* SKILLS SECTION */}
       <section className="py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 relative z-[60]">
-          <h2 className="text-4xl font-bold text-center mb-16 text-primary-foreground">
+          <h2 className="text-4xl font-bold text-center mb-16 text-secondary-foreground">
             What I Do
           </h2>
 
@@ -276,54 +293,66 @@ useEffect(() => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Frontend */}
             <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="text-4xl mb-4 text-card-foreground">•</div>
+              
               <h3 className="text-xl font-bold mb-4 text-card-foreground">
-                Frontend Development
+                App- and Web Development
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-2">
                 Creating responsive user interfaces with React, TypeScript, and
                 modern CSS frameworks.
               </p>
               <ul className="text-sm text-secondary-foreground space-y-1">
-                <li>• React & Next.js</li>
-                <li>• Node.js</li>
-                <li>• TypeScript</li>
+                <li>• React & Svelte</li>
+                <li>• Node.js & Next.js </li>
+                <li>• TypeScript & JavaScript</li>
                 <li>• Tailwind CSS</li>
+              </ul>
+              <p className="text-muted-foreground mb-2 mt-4">
+                Building seamless app, for iOS, Android and Cross-platform.
+              </p>
+              <ul className="text-sm text-secondary-foreground space-y-1">
+                <li>• Swift</li>
+                <li>• Kotlin</li>
+                <li>• Dart</li>
+                <li>• React Native</li>
               </ul>
             </div>
 
             {/* Backend */}
             <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="text-4xl mb-4 text-card-foreground">•</div>
+            
               <h3 className="text-xl font-bold mb-4 text-card-foreground">
                 Backend Development
               </h3>
               <p className="text-muted-foreground mb-4">
-                Building robust APIs and server-side applications with Node.js,
-                Python, and databases.
+                Building APIs and server-side applications with Node.js,
+                Python, databases, and integrating AI solutions.
               </p>
               <ul className="text-sm text-secondary-foreground space-y-1">
-                <li>• Node.js & Express</li>
                 <li>• Python </li>
                 <li>• C++ </li>
+                <li>• Node.js & Express</li>
                 <li>• JavaScript </li>
-                <li>• SQLite & MongoDB</li>
+                <li>• TypeScript </li>
+                <li>• SQLite, SupaBase & MongoDB</li>
+                <li>• WebSockets</li>
+                <li>• Hostinger</li>
               </ul>
             </div>
 
             {/* Full Stack */}
             <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="text-4xl mb-4 text-card-foreground">•</div>
               <h3 className="text-xl font-bold mb-4 text-card-foreground">
                 Full Stack Solutions
               </h3>
               <p className="text-muted-foreground mb-4">
                 End-to-end application development from database design to user
-                interface.
+                interface and Testing. 
               </p>
               <ul className="text-sm text-secondary-foreground space-y-1">
                 <li>• Complete web applications</li>
                 <li>• API integration</li>
+                <li>• DevOps and CI/CD Pipelines</li>
                 <li>• Testing and Automatic testing </li>
               </ul>
             </div>
