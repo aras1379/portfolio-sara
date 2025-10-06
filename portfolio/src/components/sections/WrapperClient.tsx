@@ -1,20 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
-import Aurora from "@/components/ui/AuroraBackground";
+import FlowingGradient from "@/components/ui/Wrapper";
 
-export default function ClientAuroraWrapper() {
-  /*const [colorStops, setColorStops] = useState<string[]>([]);
+export default function ClientGradientWrapper() {
+  const [colorStops, setColorStops] = useState<string[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const styles = getComputedStyle(document.documentElement);
-
       const color1 = styles.getPropertyValue("--aurora-color-1").trim();
       const color2 = styles.getPropertyValue("--aurora-color-2").trim();
       const color3 = styles.getPropertyValue("--aurora-color-3").trim();
-
-      console.log("Aurora colors loaded:", { color1, color2, color3 }); 
-
       setColorStops([color1, color2, color3]);
     }
   }, []);
@@ -23,15 +19,14 @@ export default function ClientAuroraWrapper() {
     return null;
   }
 
-  console.log("Rendering Aurora with colors:", colorStops); */
-
   return (
     <div className="fixed inset-0 pointer-events-none z-[30]">
-      <Aurora
-        colorStops={["#F4D793", "#FFF6DA", "#F9C0AB"]}
-        blend={1.4}
-        amplitude={0.4}
-        speed={1.0}
+      <FlowingGradient
+        colorStops={colorStops}
+        speed={1.5}
+        blur={80}
+        opacity={0.6}
+        waveHeight={0.6}
       />
     </div>
   );

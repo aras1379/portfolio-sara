@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import SkillsBars from "@/components/sections/SkillsBars";
 import ClientAuroraWrapper from "@/components/sections/AuroraWrapper";
+import ClientGradientWrapper from "@/components/sections/WrapperClient"; 
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -13,7 +14,8 @@ export default async function ProjectsPage() {
 
   return (
     <div className="bg-background text-foreground relative">
-       <ClientAuroraWrapper />
+  
+       <ClientGradientWrapper/>
 
         <header className="text-center mb-16 relative z-[30] pt-17">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">

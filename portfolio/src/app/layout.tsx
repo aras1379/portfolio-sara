@@ -63,7 +63,7 @@ export default function RootLayout({
             Projects
           </Link>
           <Link
-            href="/cv"
+            href="/example"
             className="text-white hover:text-blue-400 transition-colors"
           >
             CV

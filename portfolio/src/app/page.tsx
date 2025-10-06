@@ -3,7 +3,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import TextType from "@/components/ui/TextType";
 import SplitText from "@/components/ui/SplitText";
 import CircularText from "@/components/ui/CircularText";
@@ -12,6 +12,11 @@ import Aurora from "@/components/ui/AuroraBackground";
 import GradientText from "@/components/ui/GradientText";
 import VariableProximity from "@/components/ui/VariableProxi";
 import ClientAuroraWrapper from "@/components/sections/AuroraWrapper";
+import ClientGradientWrapper from "@/components/sections/WrapperClient"; 
+import ShapeBlur from "@/components/ui/ShapeBlur";
+import ScrollVelocity from "@/components/ui/ScrollVelocity";
+import { annotate } from 'rough-notation';
+
 import {
   ScrollAnimation,
   StaggerAnimation,
@@ -24,197 +29,237 @@ const handleAnimationComplete = () => {
 
 export default function HomePage() {
   const containerRef = useRef(null);
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Wait a bit for StaggerAnimation to complete
+          setTimeout(() => {
+            const aboutEl = document.getElementById("about");
+            const skillsEl = document.getElementById("skills");
+            const passionateEl = document.getElementById("passionate");
+            const userFriendlyEl = document.getElementById("user-friendly");
+            const technologiesEl = document.getElementById("technologies");
+            const processEl = document.getElementById("process");
+            const probSolveEl = document.getElementById("prob-solve");
+            const logicsEl = document.getElementById("logics");
+
+            if (aboutEl && passionateEl && processEl && probSolveEl && logicsEl && technologiesEl) {
+              // Make spans inline-block to fix positioning
+              aboutEl.style.display = "inline-block";
+              passionateEl.style.display = "inline-block";
+              processEl.style.display = "inline-block";
+              probSolveEl.style.display = "inline-block";
+              logicsEl.style.display = "inline-block";
+          
+              technologiesEl.style.display = "inline-block";
+
+              const first = annotate(aboutEl, { 
+                type: "highlight", 
+                color: "#fef08a",
+                padding: 2
+              });
+              
+
+              const a1 = annotate(passionateEl, { 
+                type: "underline", 
+                color: "#fb923c", 
+                strokeWidth: 2,
+                padding: 2
+              });
+              const a2 = annotate(processEl, { 
+                type: "underline", 
+                color: "#60a5fa", 
+                strokeWidth: 2,
+                padding: 2
+            });
+            const a3 = annotate(probSolveEl, { 
+              type: "highlight", 
+                color: "#b4fe8aff",
+                padding: 2
+            });
+            const a4 = annotate(logicsEl, { 
+              type: "circle", 
+                color: "#fb923c", 
+                padding: 8
+            });
+
+
+
+ 
+              const a5 = annotate(technologiesEl, { 
+                type: "circle", 
+                color: "#fb923c", 
+                padding: 8
+              });
+              setTimeout(() => first.show(), 200);
+              setTimeout(() => a1.show(), 300);
+              setTimeout(() => a2.show(), 800);
+              setTimeout(() => a3.show(), 1300);
+              setTimeout(() => a4.show(), 1800);
+              setTimeout(() => a5.show(), 2300);
+
+            }
+          }, 1000); 
+          
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  const aboutSection = document.querySelector('section:nth-of-type(2)');
+  if (aboutSection) observer.observe(aboutSection);
+
+  return () => observer.disconnect();
+}, []);
+
   return (
     <div className="bg-primary relative">
-      <ClientAuroraWrapper />
+      <ClientGradientWrapper />
       {/* HERO SECTION */}
-      <section className="min-h-[80vh] bg-background text-foreground flex items-center justify-center relative overflow-hidden">
-        <div className="max-w-6xl w-full px-4 relative">
-          {/* 3 column grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-5 relative h-full min-h-[80vh] z-[60]">
-            {/* LEFT COLUMN */}
-            <div className="relative z-30 flex flex-col text-center lg:text-left h-full">
-              <div className="flex pt-30">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
-                  <TextType
-                    text={["Hi! I'm Sara"]}
-                    typingSpeed={120}
-                    pauseDuration={1000}
-                    showCursor={true}
-                    cursorCharacter=""
-                  />
-                </div>
-              </div>
-
-              {/* Bottom p */}
-              <div className="flex-grow flex pt-2">
-                <div className="text-1xl md:text-1xl lg:text-2xl">
-                  <TextType
-                    text={["Software Developer"]}
-                    typingSpeed={120}
-                    pauseDuration={1000}
-                    showCursor={true}
-                    cursorCharacter=""
-                    initialDelay={2000}
-                    
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/*middle placehholder*/}
-            <div className="hidden lg:block"></div>
-
-            {/* RIGHT COLUMN */}
-            <div className="relative z-30 flex items-start lg:justify-end lg:pt-20">
-              <div className="grid grid-rows-3 gap-2 justify-start items-start max-w-xs">
-  <div className="grid grid-rows-3 gap-2 justify-start items-start max-w-xs text-foreground">
-    <h2 className="text-2xl md:text-2xl lg:text-2xl">
-      About Me
-    </h2>
-                
-
-
-      
-                <div
-                  ref={containerRef}
-                  className="mt-2"
-                  style={{
-                    position: "relative",
-                    fontFamily: "var(--font-inter)",
-                  }}
-                >
-                  <VariableProximity
-                    label={"Hover me! And then s"}
-                    className={"variable-proximity-demo"}
-                    fromFontVariationSettings="'wght' 400, 'opsz' 9"
-                    toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                    containerRef={containerRef}
-                    radius={100}
-                    falloff="linear"
-                  />
-                </div>
-           
-
-              <Link href="/projects">
-              <button className="hover:scale-110 transition-transform font-bold underline">
-  More About Me 
-</button>
-              
-              </Link>
-              </div>
-
-              <div className="grid grid-rows-3 gap-2 justify-start items-start max-w-xs text-foreground">
-    <h2 className="text-2xl md:text-2xl lg:text-2xl">
-          My Work
-    </h2>
-                
-
-
-      
-                <div
-                  ref={containerRef}
-                  className="mt-2"
-                  style={{
-                    position: "relative",
-                    fontFamily: "var(--font-inter)",
-                  }}
-                >
-                  <VariableProximity
-                    label={"Hover me! And then s"}
-                    className={"variable-proximity-demo"}
-                    fromFontVariationSettings="'wght' 400, 'opsz' 9"
-                    toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                    containerRef={containerRef}
-                    radius={100}
-                    falloff="linear"
-                  />
-                </div>
-           
-
-              <Link href="/projects">
-              <button className="hover:scale-110 transition-transform font-bold underline">
- View Portfolio
-</button>
-              
-              </Link>
-              </div>
-
-              </div>
-            </div>
+       <section className="bg-background text-foreground relative overflow-hidden py-12 lg:py-20">
+  <div className="max-w-6xl w-full px-4 mx-auto">
+    {/* 2 column grid */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      {/* LEFT COLUMN - 3 ROWS */}
+      <div className="flex flex-col z-30">
+        {/* ROW 1 - Greeting */}
+        <div className="mb-2">
+          <div className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <TextType
+              text={["Hi! I'm Sara"]}
+              typingSpeed={120}
+              pauseDuration={1000}
+              showCursor={true}
+              cursorCharacter=""
+            />
           </div>
         </div>
-        {/* MIDDLE COLUMN */}
 
-        <div className="absolute bottom-0 left-0 lg:left-1/2 lg:-translate-x-1/2 z-[60]">
-          <img
-            src="/images/sara.png"
-            alt="Sara's animated photo"
-            className="block
-        h-auto
-        w-[200px]  
-        sm:w-[200px]   /* small screens */
-        md:w-[300px]   /* medium screens */
-        lg:w-[500px]   /* large screens */
-        xl:w-[550px]   /* extra large screens */
-        transition-all duration-500 ease-in-out
-      "
-          />
+        {/* ROW 2 - Tagline */}
+        <div className="mb-40">
+          <div className="text-1xl md:text-1xl lg:text-2xl flex">
+            <TextType
+              text={["I build things with code"]}
+              typingSpeed={120}
+              pauseDuration={1000}
+              showCursor={true}
+              cursorCharacter=""
+              initialDelay={2000}
+            />
+          </div>
         </div>
-      </section>
+
+        {/* ROW 3 - CTA Section */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Link
+              href="/projects"
+              className="inline-block border-2 border-white bg-white text-background px-8 py-4 rounded-lg font-semibold hover:bg-primary transition-all duration-300 hover:scale-105"
+            >
+              About Sara
+            </Link>
+          </div>
+
+          <div>
+            <Link
+              href="/projects"
+              className="inline-block border-2 border-white bg-white text-background px-10 py-4 rounded-lg font-semibold hover:bg-primary transition-all duration-300 hover:scale-105"
+            >
+              Read CV
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT COLUMN - Image */}
+      <div className="flex justify-center lg:justify-end z-30 -mt-8 lg:-mt-12">
+        <img
+          src="/images/sara-back2.png"
+          alt="Sara's animated photo"
+          className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px] xl:w-[440px] h-auto transition-all duration-500 ease-in-out"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* FULL WIDTH BOTTOM ROW */}
+  <div className="absolute bottom-0 left-0 right-0 h-16 bg-primary opacity-50 z-20">
+    <ScrollVelocity
+  texts={['Python • JavaScript • TypeScript • C++ • Web Development • App Development', 'React • Next.js • Node.js • Swift • Flutter']} 
+  velocity={20} 
+  className="custom-scroll-text text-2xl text-background"
+/>
+  </div>
+</section>
+
+
 
       {/* ABOUT SECTION*/}
-      <section className="py-20 bg-background pt-40">
+      <section className="py-20 bg-background text-secondary-foreground pt-40">
         <div className="relative z-[60]">
         
 
         <div className="max-w-6xl mx-auto px-4">
   
           <StaggerAnimation
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6"
             staggerDelay={0.6}
           >
-  
+   <StaggerItem>
+              {/* left col - Image */}
+              <div className="relative">
+                <img
+                  src="/images/about-sara.png"
+                  alt="Sara's animated photo"
+                  className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px] xl:w-[440px] transition-all duration-500 ease-in-out"
+                />
+                {/* element behind image */}
+ <div className="absolute -top-4 -left-4 -bottom-0 w-9/10  bg-background rounded-lg -z-10"></div>
+               </div>
+            </StaggerItem>
             <StaggerItem>
-              <div className="space-y-6">
-                <h2 className="text-3xl text-foreground leading-relaxed">
-                  About me
+               {/* RIGHT col - Info */}
+               <div className="relative">
+    <div className="absolute -top-4 -bottom-7 -left-8 lg:-left-25 lg:-right-15 bg-background rounded-lg -z-10"></div>
+              <div className="space-y-6 ">
+                <h2 className="text-3xl secondary-foreground leading-relaxed">
+                  <span id ="about" style={{display: 'inline-block'}}>About me</span>
                 </h2>
                 </div>
               <div className="space-y-6">
-                <p className="text-lg text-foreground leading-relaxed">
-                  I'm a passionate software developer with expertise in modern
-                  web technologies. I love creating user-friendly applications
-                  that solve real-world problems.
-                </p>
-                <p className="text-lg text-foreground leading-relaxed">
-                  When I'm not coding, you can find me exploring new
-                  technologies, contributing to open source projects, or
-                  enjoying a good cup of coffee.
-                </p>
-                {/* Skills */}
-                <div className="flex flex-wrap gap-3">
-                  {["React", "TypeScript", "Node.js", "Python"].map((skill) => (
-                    <span
-                      key={skill}
-                      className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                <p className="text-lg secondary-foreground leading-relaxed">
+                I'm a recently graduated, yet <span id="passionate">passionate</span>, software developer who really enjoyes the <span id="process">programmering process</span> - from planning and structuring to implementing both frontend and backend - especially backend. 
+                I like the <span id="prob-solve">problem-solving</span> and <span id="logics">logics</span> since it stimulates my analytical mind. I strive to develop applications I can be proud of with architecture and future development in mind. 
+
+            </p>
+                <p className="text-lg secondary-foreground leading-relaxed">
+              When I'm not coding, you can find me exploring new{" "}
+              <span id="technologies">technologies</span>, sewing clothes, climbing, puzzling, or
+              enjoying a good cup of coffee.
+            </p>
+            </div>
+       
+              <div className="space-y-6 pt-5">
+                <h2 className="text-xl secondary-foreground leading-relaxed">
+                  <span id ="about">
+                    My Person</span>
+                </h2>
               </div>
-            </StaggerItem>
-            <StaggerItem>
-              {/* Right column - Image */}
-              <div className="relative">
-                <div className="bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg h-80 flex items-center justify-center">
-                  <span className="text-gray-600 text-lg">image</span>
-                </div>
-                {/* element behind image */}
-                <div className="absolute -top-4 -left-4 w-full h-full bg-blue-500 rounded-lg opacity-20 -z-10"></div>
               </div>
+
+            
             </StaggerItem>
+
+            
+
+          
+
+     
+           
           </StaggerAnimation>
         </div>
         </div>
