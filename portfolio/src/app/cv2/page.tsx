@@ -296,18 +296,20 @@ const CVPage: React.FC = () => {
                               </h3>
                               <ul className="space-y-2 text-gray-600">
                                 <li>• Python</li>
-                                <li>• Spanish (Fluent)</li>
-                                <li>• French (Intermediate)</li>
+                                <li>• C++</li>
+                                <li>• Java </li>
+                                <li>• JavaScript </li>
+                                <li>• TypeScript </li>
                               </ul>
                             </div>
                             <div>
                               <h3 className="font-semibold text-card-foreground mb-2">
-                                Languages
+                                Tools & Frameworks
                               </h3>
                               <ul className="space-y-2 text-gray-600">
-                                <li>• English (Native)</li>
-                                <li>• Spanish (Fluent)</li>
-                                <li>• French (Intermediate)</li>
+                                <li>• Git</li>
+                                <li>• Docker</li>
+                                <li>• Selenium</li>
                               </ul>
                             </div>
                           </div>
