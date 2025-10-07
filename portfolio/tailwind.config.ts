@@ -13,6 +13,7 @@ export default {
         ring: "var(--ring)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        buttons: "var(--buttons)",
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",

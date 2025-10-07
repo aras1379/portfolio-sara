@@ -22,6 +22,14 @@
   }
 }
 
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.font-geist {
+  font-family: var(--font-geist-sans);
+}
+
 .variable-proximity-demo {
   font-family: 'Inter', sans-serif;
   font-variation-settings: 'wght' 400;
@@ -251,13 +259,16 @@ html {
   --secondary: rgb(249, 192, 171);
   --secondary-foreground: rgb(53, 95, 46);
 
-  --accent: rgb(168, 205, 137);
+  --accent: rgb(154, 186, 128);
   --accent-foreground: rgb(28 53 45);
+
+  --buttons: rgb(198, 232, 171);
+  --buttons-foreground: rgb(53 95 46);
 
   --card: rgb(183, 215, 161);
   --card-foreground: rgb(53, 95, 46);
 
-  --muted: rgb(243 244 246); /* gray-100 */
+  --muted: rgb(246, 234, 192);
   --muted-foreground: rgb(107 114 128); /* gray-500 */
 
   --border: rgb(166 178 139);

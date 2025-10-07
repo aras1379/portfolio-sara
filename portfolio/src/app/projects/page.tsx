@@ -1,85 +1,48 @@
-// skills chart and projects
-
+//PROJECTS AND TECHNIQUES 
 import { getProjects } from "@/lib/projects";
-import { getSkillById } from "@/lib/skills";
-import Link from "next/link";
-
-import SkillsBars from "@/components/sections/SkillsBars";
-import ClientAuroraWrapper from "@/components/sections/AuroraWrapper";
-import ClientGradientWrapper from "@/components/sections/WrapperClient"; 
+import SkillsFullDisplay from "@/components/sections/SkillsDisplay";
+import ClientGradientWrapper from "@/components/sections/WrapperClient";
+import ProjectsClient from "./ProjectClient";
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
-  
 
   return (
     <div className="bg-background text-foreground relative">
-  
-       <ClientGradientWrapper/>
+      <div className="fixed inset-0 z-[5]">
+        <ClientGradientWrapper />
+      </div>
 
-        <header className="text-center mb-16 relative z-[30] pt-17">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Sara Ljung
+      <div className="relative z-[10]">
+        <header className="text-center mb-10 pt-20">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-1">
+            Portfolio and Techniques
           </h1>
-          </header>
-      <div className="relative max-w-6xl mx-auto px-4 py-8 mb-16 relative z-[30]">
+        </header>
 
+        <div className="max-w-6xl mx-auto px-8 mb-16">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-800 mb-2">Projects</h2>
+            <p className="text-gray-600 mb-4">My projects</p>
+          </div>
 
-        <SkillsBars></SkillsBars>
+          <ProjectsClient projects={projects} />
 
-    
-        <h2 className="text-2xl font-bold mb-8 text-foreground">
-          Featured Projects
-        </h2>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Link key={project.id} href={`/projects/${project.slug}`}>
-              <div className="bg-card rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer border border-border">
-                <h3 className="text-xl font-semibold mb-2 text-card-foreground">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground mb-4 text-sm">
-                  {project.description}
-                </p>
-
-                {/* TechStack Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.slice(0, 3).map((skillId) => {
-                    const skill = getSkillById(skillId);
-                    return skill ? (
-                      <span
-                        key={skill.id}
-                        className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium"
-                      >
-                        {skill.label}
-                      </span>
-                    ) : null;
-                  })}
-                  {project.techStack.length > 3 && (
-                    <span className="text-secondary-foreground text-xs">
-                      +{project.techStack.length - 3} more
-                    </span>
-                  )}
-                </div>
-
-                {/* Project Meta data */}
-                <div className="text-sm text-secondary-foreground">
-                  <span className="capitalize">{project.category}</span>
-                  {project.duration && <span> • {project.duration}</span>}
-                </div>
-              </div>
-            </Link>
-          ))}
+          {projects.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-secondary-foreground">No projects found.</p>
+            </div>
+          )}
         </div>
 
-        {/* if no projects*/}
-        {projects.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-secondary-foreground">No projects found.</p>
-          </div>
-        )}
+        <div className="max-w-6xl mx-auto px-4 py-2 mb-7">
+          <SkillsFullDisplay
+            displayMode="circle"
+            showToggle={false}
+            showCategoryAverage={true}
+            showSummaryStats={false}
+          />
+        </div>
       </div>
     </div>
   );

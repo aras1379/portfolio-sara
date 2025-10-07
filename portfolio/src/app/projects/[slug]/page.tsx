@@ -27,7 +27,7 @@ export default async function ProjectPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Back to Projects */}
+
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
@@ -41,7 +41,7 @@ export default async function ProjectPage({
 
       {/* Project Content */}
       <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
+
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="mb-4">
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
