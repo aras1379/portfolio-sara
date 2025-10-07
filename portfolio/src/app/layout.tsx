@@ -45,7 +45,7 @@ export default function RootLayout({
             <div className="flex justify-between items-center h-16">
               {/* Logo/Name*/}
               <Link href="/" className="text-xl font-bold text-white">
-                Sara's Portfolio
+                Saras Portfolio
               </Link>
 
               {/* Navigation Links  */}
@@ -92,7 +92,7 @@ export default function RootLayout({
         {/* FOOTER*/}
         <footer className="bg-primary-foreground text-white py-8">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <p>&copy; 2025 Sara's Portfolio.</p>
+            <p>&copy; 2025 Saras Portfolio.</p>
           </div>
         </footer>
       </body>

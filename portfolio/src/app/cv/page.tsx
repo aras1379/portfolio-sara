@@ -1,5 +1,4 @@
 "use client";
-import { useRef } from 'react';
 
 export default function CVPage() {
   return (
@@ -209,7 +208,7 @@ export default function CVPage() {
 
             <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg">
               <h3 className="text-lg font-bold text-emerald-900 mb-3">Other</h3>
-              <p className="text-gray-700">Driver's License B</p>
+              <p className="text-gray-700">Driver License B</p>
             </div>
           </div>
         </section>

@@ -17,14 +17,13 @@ import {
   AtSymbolIcon,
   PhoneIcon,
   MapPinIcon,
-  GlobeAltIcon,
-  ArrowDownTrayIcon,
+
 } from "@heroicons/react/24/solid";
 import { getProjects } from "@/lib/projects";
 import {
   mySkills,
   getSkillById,
-  getAverageProficiencyByCategory,
+
 } from "@/lib/skills";
 import { Project } from "@/types/project";
 
@@ -259,13 +258,13 @@ const CVPage: React.FC = () => {
                       <p className="text-gray-600 mb-6 leading-relaxed">
                         I am Sara, as guessed. Recently graduated software
                         engineer who is highly stimulated and interested by the
-                        area. As new in the work-field, I'm not specialized yet.
+                        area. As new in the work-field, Im not specialized yet.
                         I find software development overall rewarding due to the
                         analytical and problemsolving parts of it. I like the
                         planning and structure of code as much as the actual
                         programming and later on testing. Often when I am
                         coding, I feel myself disappear into it and are highly
-                        determined, or fixated, to solve the problem I'm
+                        determined, or fixated, to solve the problem Im
                         currently working on. I have always appricated Frontend,
                         but find the Backend-part more interesting due to its
                         logical part. I have always liked math and logics, which
@@ -675,14 +674,14 @@ const CVPage: React.FC = () => {
                           </h4>
                           <p className="text-gray-600 mb-2">Erik Engwall</p>
                           <p className="text-gray-600 italic">
-                            "Sara Ljung har med stor noggrannhet, snabbhet och
+                            Sara Ljung har med stor noggrannhet, snabbhet och
                             stort intresse uppfyllt de krav som rollen krävt.
                             Hon har visat sig mycket ansvarsmedveten och
                             initiativrik. Då hon dessutom är synnerligen lätt
                             att samarbeta med vill vi ge henne våra allra bästa
                             rekommendationer. Vi önskar Sara lycka till i sin
                             framtida karriär när hon nu avslutat sin anställning
-                            på Knowit Connectivity på grund av arbetsbrist."{" "}
+                            på Knowit Connectivity på grund av arbetsbrist.{" "}
                           </p>
                           <p className="text-gray-600 mt-4">
                             Translation: Sara Ljung has, with great precision,

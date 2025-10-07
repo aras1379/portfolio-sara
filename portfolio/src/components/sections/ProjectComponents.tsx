@@ -3,22 +3,14 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { getSkillById, type Skill } from "@/lib/skills";
+import { Project } from "@/types/project";
 
 // ============================================
 // PROJECT CARD COMPONENT
 // ============================================
 
 interface ProjectCardProps {
-  project: {
-    id: string;
-    slug: string;
-    title: string;
-    description: string;
-    techStack: string[];
-    category: string;
-    duration?: string;
-    imageUrl?: string;
-  };
+  project: Project;
   onClick?: () => void;
   showTechStack?: boolean;
   maxTechShown?: number;
@@ -102,8 +94,8 @@ export const ProjectCard = ({
 // ============================================
 
 interface ProjectGridProps {
-  projects: any[];
-  onProjectClick?: (project: any) => void;
+  projects: Project[];
+  onProjectClick?: (project: Project) => void;
   showTechStack?: boolean;
   maxTechShown?: number;
   columns?: 1 | 2 | 3 | 4;
@@ -218,12 +210,16 @@ export const TechStackDisplay = ({
 // ============================================
 
 interface ProjectPopUpProps {
-  project: any;
+  project: Project | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const ProjectPopUp = ({ project, isOpen, onClose }: ProjectPopUpProps) => {
+  // Add early return if no project
+  if (!isOpen || !project) return null;
+
+  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -235,163 +231,58 @@ export const ProjectPopUp = ({ project, isOpen, onClose }: ProjectPopUpProps) =>
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    if (isOpen) {
-      window.addEventListener('keydown', handleEscape);
-    }
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-white/30"
-      onClick={onClose}
-    >
-      <div 
-        className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[85vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b p-6 flex justify-between items-start">
-          <div className="flex-1">
-            <div className="mb-2">
-              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                {project.category}
-              </span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">{project.title}</h2>
-            <p className="text-lg text-gray-600 mt-2">{project.description}</p>
-          </div>
+    
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-white/30">
+      <div  className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[85vh] overflow-y-auto">
+        {/* Close button */}
+        <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-gray-800">{project.title}</h2>
           <button
             onClick={onClose}
-            className="ml-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+            className="text-gray-500 hover:text-gray-700 text-2xl"
           >
             ×
           </button>
         </div>
 
-        {/* Content */}
+        {/* Modal content */}
         <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Full Description */}
-              {project.fullDescription && (
-                <div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">About</h3>
-                  <p className="text-gray-700 leading-relaxed">{project.fullDescription}</p>
-                </div>
-              )}
+          {project.imageUrl && (
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="w-full h-64 object-cover rounded-lg mb-6"
+            />
+          )}
 
-              {/* Features */}
-              {project.features && project.features.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">Features</h3>
-                  <ul className="space-y-2">
-                    {project.features.map((feature: string, index: number) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-blue-600 mr-3 mt-1">•</span>
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+          <p className="text-gray-600 mb-6">{project.description}</p>
 
-              {/* Challenges */}
-              {project.challenges && project.challenges.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">Challenges</h3>
-                  <ul className="space-y-2">
-                    {project.challenges.map((challenge: string, index: number) => (
-                      <li key={index} className="text-gray-700">{challenge}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Learnings */}
-              {project.learnings && project.learnings.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">Key Learnings</h3>
-                  <ul className="space-y-2">
-                    {project.learnings.map((learning: string, index: number) => (
-                      <li key={index} className="text-gray-700">{learning}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex gap-4 pt-4">
-                {project.demoUrl && (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                  >
-                    View Demo
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                  >
-                    View Code
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Tech Stack */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-lg font-bold mb-4 text-gray-900">Tech Stack</h3>
-                <TechStackDisplay 
-                  techStack={project.techStack} 
-                  variant="minimal"
-                  showProficiency={false}
-                />
-              </div>
-
-              {/* Project Info */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-lg font-bold mb-4 text-gray-900">Project Info</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Status:</span>
-                    <span className="font-medium capitalize">{project.status}</span>
-                  </div>
-                  {project.duration && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Duration:</span>
-                      <span className="font-medium">{project.duration}</span>
-                    </div>
-                  )}
-                  {project.teamSize && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Team Size:</span>
-                      <span className="font-medium">{project.teamSize}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Category:</span>
-                    <span className="font-medium capitalize">{project.category}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Tech Stack */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3">Technologies Used</h3>
+            <TechStackDisplay
+              techStack={project.techStack}
+              variant="pills"
+              showProficiency={false}
+            />
           </div>
+
+          {/* Project details */}
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <span className="font-semibold">Category:</span>{" "}
+              <span className="capitalize">{project.category}</span>
+            </div>
+            {project.duration && (
+              <div>
+                <span className="font-semibold">Duration:</span> {project.duration}
+              </div>
+            )}
+          </div>
+
+          {/* Links if available */}
+ 
         </div>
       </div>
     </div>

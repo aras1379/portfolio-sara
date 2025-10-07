@@ -1,6 +1,6 @@
 "use client";
 import RollingGallery from "@/components/RollingGallery";
-import { useRef } from 'react';
+
   
 
 export default function CVPage() {

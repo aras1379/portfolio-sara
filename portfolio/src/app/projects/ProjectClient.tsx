@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { ProjectGrid, ProjectPopUp } from "@/components/sections/ProjectComponents";
+import { Project } from "@/types/project";
 
 interface ProjectsClientProps {
-  projects: any[];
+  projects: Project[];
 }
 
 export default function ProjectsClient({ projects }: ProjectsClientProps) {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <>
@@ -21,12 +22,14 @@ export default function ProjectsClient({ projects }: ProjectsClientProps) {
         columns={3}
       />
 
-      {/* Singel project popup */}
-      <ProjectPopUp
-        project={selectedProject}
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      {/* Single project popup - only render when project exists */}
+      {selectedProject && (
+        <ProjectPopUp
+          project={selectedProject}
+          isOpen={true}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </>
   );
 }

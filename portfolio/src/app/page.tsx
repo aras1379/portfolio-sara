@@ -1,6 +1,7 @@
 // HOME PAGE
 
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import TextType from "@/components/ui/TextType";
@@ -20,7 +21,6 @@ import {
 } from "@/components/ui/ScrollAnimation";
 import { mySkills } from "@/lib/skills";
 
-
 export default function HomePage() {
   const containerRef = useRef(null);
 
@@ -38,8 +38,7 @@ export default function HomePage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-
-            //ROUGH NOTATION 
+            //ROUGH NOTATION
             setTimeout(() => {
               const aboutEl = document.getElementById("about");
               const passionateEl = document.getElementById("passionate");
@@ -126,7 +125,6 @@ export default function HomePage() {
       {/* HERO SECTION */}
       <section className="bg-background text-foreground relative overflow-hidden py-12 lg:py-20">
         <div className="max-w-6xl w-full px-4 mx-auto">
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* LEFT COLUMN */}
             <div className="flex flex-col z-30">
@@ -171,7 +169,7 @@ export default function HomePage() {
                     <h2 className="text-1xl text-primary-foreground leading-relaxed">
                       Recently graduated Data Engineer in Software Development
                       and Mobile Applications, who enjoyes programming both
-                      work-wise and private. I'm a detail-oriented person who
+                      work-wise and private. Im a detail-oriented person who
                       learns fast and striving towards making stuff more
                       efficient while always trying to do my very best.
                     </h2>
@@ -214,10 +212,13 @@ export default function HomePage() {
 
             {/* RIGHT COLUMN - Image */}
             <div className="flex justify-center lg:justify-end z-30 -mt-8 lg:-mt-12">
-              <img
+              <Image
                 src="/images/sara-back2.png"
                 alt="Sara's animated photo"
+                width={440}
+                height={440}
                 className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px] xl:w-[440px] h-auto transition-all duration-500 ease-in-out"
+                priority={true}
               />
             </div>
           </div>
@@ -250,11 +251,15 @@ export default function HomePage() {
               <StaggerItem>
                 {/* left col - Image */}
                 <div className="relative">
-                  <img
+                  <Image
                     src="/images/about-sara.png"
                     alt="Sara's animated photo"
+                    width={300}
+                    height={440} 
                     className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px] xl:w-[440px] transition-all duration-500 ease-in-out"
+                   
                   />
+
                   {/* element behind image */}
                   <div className="absolute -top-4 -left-4 -bottom-0 w-9/10  bg-background rounded-lg -z-10"></div>
                 </div>
@@ -272,7 +277,7 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-6">
                     <p className="text-lg secondary-foreground leading-relaxed">
-                      I'm a recently graduated, yet{" "}
+                      Im a recently graduated, yet{" "}
                       <span id="passionate">passionate</span>, software
                       developer who really enjoyes the{" "}
                       <span id="process">programmering process</span> - from
@@ -284,7 +289,7 @@ export default function HomePage() {
                       proud of with architecture and future development in mind.
                     </p>
                     <p className="text-lg secondary-foreground leading-relaxed">
-                      When I'm not coding, you can find me exploring new{" "}
+                      When Im not coding, you can find me exploring new{" "}
                       <span id="technologies">technologies</span>, sewing
                       clothes, climbing, puzzling, or enjoying a good cup of
                       coffee.
@@ -331,7 +336,7 @@ export default function HomePage() {
                   <CategoryAverageBar
                     category={mySkills[0]}
                     isVisible={true}
-                    showSkillTags={true} 
+                    showSkillTags={true}
                   />
                 </div>
               </div>
@@ -353,7 +358,7 @@ export default function HomePage() {
                   <CategoryAverageBar
                     category={mySkills[1]}
                     isVisible={true}
-                    showSkillTags={true} 
+                    showSkillTags={true}
                   />
                 </div>
               </div>
@@ -391,7 +396,7 @@ export default function HomePage() {
             Interested in working with me?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            I'm always interested in new opportunities and exciting projects.
+            Im always interested in new opportunities and exciting projects.
           </p>
           <div className="space-x-4">
             <Link

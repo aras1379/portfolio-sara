@@ -1,3 +1,7 @@
+// lib/skills.ts
+
+import { Project } from "@/types/project";
+
 // SKILLS DATA
 
 export interface Skill {
@@ -51,7 +55,6 @@ export const SKILLS_MAP = new Map<string, Skill>(
   allSkills.map((skill) => [skill.id, skill])
 );
 
-
 // Helper to get skill by ID
 export const getSkillById = (id: string): Skill | undefined => {
   return SKILLS_MAP.get(id);
@@ -65,7 +68,7 @@ export const getSkillsForProject = (skillIds: string[]): Skill[] => {
 };
 
 // Helper to get projects using a specific skill
-export const getProjectsUsingSkill = (skillId: string, projects: any[]): any[] => {
+export const getProjectsUsingSkill = (skillId: string, projects: Project[]): Project[] => {
   return projects.filter(project => 
     project.techStack.includes(skillId)
   );
