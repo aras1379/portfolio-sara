@@ -284,7 +284,7 @@ html {
 
 
 .light {
-  /* This class is now redundant since its values are in :root, but we can keep it for testing */
+
   --background: rgb(5 46 22); /* emerald-950 */
   --foreground: rgb(255 255 255); /* white */
   --primary: rgb(249 250 251); /* gray-50 */
@@ -313,8 +313,7 @@ html {
   }
 }
 
-/* Custom Scrollbar Styles using Theme Variables */
-/* This works for Webkit-based browsers like Chrome, Safari, and Edge */
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

@@ -20,9 +20,13 @@ import {
   StaggerItem,
 } from "@/components/ui/ScrollAnimation";
 import { mySkills } from "@/lib/skills";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function HomePage() {
   const containerRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
+  const [startAnimations, setStartAnimations] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -33,7 +37,41 @@ export default function HomePage() {
       });
     }
   };
+
+  const handleCloseModal = () => {
+    localStorage.setItem("welcomeModalSeen", "true");
+    setShowModal(false);
+    setTimeout(() => setStartAnimations(true), 100);
+  };
+
   useEffect(() => {
+    setIsClient(true);
+    const hasSeenModal = localStorage.getItem("welcomeModalSeen");
+    
+    console.log("Has seen modal:", hasSeenModal); 
+    
+    if (!hasSeenModal) {
+      // First time visitor - show modal
+      setShowModal(true);
+    } else {
+      
+      setStartAnimations(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showModal]);
+
+  useEffect(() => {
+    if (!startAnimations) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -117,97 +155,149 @@ export default function HomePage() {
     if (aboutSection) observer.observe(aboutSection);
 
     return () => observer.disconnect();
-  }, []);
+  }, [startAnimations]);
 
   return (
     <div className="bg-primary relative">
+      {/* MODAL POPUP */}
+      {showModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={handleCloseModal}
+          />
+
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-8 transform transition-all">
+            {/* Close button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+              aria-label="Close modal"
+            >
+              <XMarkIcon className="w-6 h-6 text-gray-600" />
+            </button>
+
+            {/* Content */}
+            <div className="text-center">
+              <div className="mb-4">
+                <span className="text-6xl"></span>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Under Development
+              </h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Hello! This page is currently under development. Some features
+                may not work as expected and some information may be missing.
+                <br></br> Thanks for your understanding!
+              </p>
+              <button
+                onClick={handleCloseModal}
+                className="w-full bg-secondary hover:bg-primary text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105"
+              >
+                Got it, let's explore!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <ClientGradientWrapper />
       {/* HERO SECTION */}
       <section className="bg-background text-foreground relative overflow-hidden py-12 lg:py-20">
         <div className="max-w-6xl w-full px-4 mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* LEFT COLUMN */}
-            <div className="flex flex-col z-30">
+            <div className="flex flex-col z-30 flex items-center lg:items-start">
               {/* ROW 1 - Hi im sara */}
               <div className="mb-2">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-geist">
-                  <TextType
-                    text={["Hi! I'm Sara"]}
-                    typingSpeed={120}
-                    pauseDuration={1000}
-                    showCursor={true}
-                    cursorCharacter=""
-                    className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-geist-sans)]"
-                  />
+                <div className="text-4xl md:text-5xl lg:text-6xl font-geist text-center md:text-left">
+                  {startAnimations && (
+                    <TextType
+                      text={["Hi! I'm Sara"]}
+                      typingSpeed={120}
+                      pauseDuration={1000}
+                      showCursor={true}
+                      cursorCharacter=""
+                      className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-geist-sans)]"
+                    />
+                  )}
                 </div>
               </div>
 
               {/* ROW 2 - */}
               <div className="mb-4">
-                <div className="text-1xl md:text-1xl lg:text-2xl flex">
-                  <TextType
-                    text={["I build things with code"]}
-                    typingSpeed={30}
-                    pauseDuration={1000}
-                    showCursor={true}
-                    cursorCharacter=""
-                    initialDelay={2000}
-                  />
+                <div className="text-1xl md:text-1xl lg:text-2xl text-center md:text-left">
+                  {startAnimations && (
+                    <TextType
+                      text={["I build things with code"]}
+                      typingSpeed={30}
+                      pauseDuration={1000}
+                      showCursor={true}
+                      cursorCharacter=""
+                      initialDelay={2000}
+                    />
+                  )}
                 </div>
               </div>
 
               {/* ROW 3 */}
               <div className="mb-20">
                 <div className="text-1xl md:text-1xl lg:text-1xl flex">
-                  <FadeContent
-                    blur={true}
-                    duration={1000}
-                    easing="ease-out"
-                    delay={3000}
-                    initialOpacity={0}
-                  >
-                    <h2 className="text-1xl text-primary-foreground leading-relaxed">
-                      Recently graduated Data Engineer in Software Development
-                      and Mobile Applications, who enjoyes programming both
-                      work-wise and private. Im a detail-oriented person who
-                      learns fast and striving towards making stuff more
-                      efficient while always trying to do my very best.
-                    </h2>
-                  </FadeContent>
+                  {startAnimations && (
+                    <FadeContent
+                      blur={true}
+                      duration={1000}
+                      easing="ease-out"
+                      delay={3000}
+                      initialOpacity={0}
+                    >
+                      <h2 className="text-1xl text-primary-foreground leading-relaxed">
+                        Recently graduated Data Engineer in Software Development
+                        and Mobile Applications, who enjoyes programming both
+                        work-wise and private. Im a detail-oriented person who
+                        learns fast and striving towards making stuff more
+                        efficient while always trying to do my very best.
+                      </h2>
+                    </FadeContent>
+                  )}
                 </div>
               </div>
 
               {/* ROW 4 - Buttons */}
-              <FadeContent
-                blur={true}
-                duration={1000}
-                easing="ease-out"
-                delay={3000}
-                initialOpacity={0}
-              >
-                <div className="grid grid-cols-3 gap-4 flex justify-center lg:pl-10">
-                  <Link
-                    href="/projects"
-                    className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105"
-                  >
-                    <span>Portfolio</span>
-                  </Link>
+              {startAnimations && (
+                <FadeContent
+                  blur={true}
+                  duration={1000}
+                  easing="ease-out"
+                  delay={3000}
+                  initialOpacity={0}
+                >
+                  <div className="grid grid-cols-3 gap-6 md:gap-14 lg:pl-10">
+                    <Link
+                      href="/projects"
+                      className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105"
+                    >
+                      <span>Portfolio</span>
+                    </Link>
 
-                  <Link
-                    href="/projects"
-                    className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105"
-                  >
-                    Read CV
-                  </Link>
+                    <Link
+                      href="/projects"
+                      className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105"
+                    >
+                      Read CV
+                    </Link>
 
-                  <button
-                    onClick={() => scrollToSection("about-section")}
-                    className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105 cursor-pointer"
-                  >
-                    <span>About Me</span>
-                  </button>
-                </div>
-              </FadeContent>
+                    <button
+                      onClick={() => scrollToSection("about-section")}
+                      className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105 cursor-pointer"
+                    >
+                      <span>About Me</span>
+                    </button>
+                  </div>
+                </FadeContent>
+              )}
             </div>
 
             {/* RIGHT COLUMN - Image */}
@@ -243,39 +333,43 @@ export default function HomePage() {
         className="py-20 bg-background text-secondary-foreground pt-40"
       >
         <div className="relative z-[60]">
-          <div className="max-w-6xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4 md:px-6">
             <StaggerAnimation
-              className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6"
+              className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-1 lg:items-stretch"
               staggerDelay={0.6}
             >
-              <StaggerItem>
-                {/* left col - Image */}
-                <div className="relative">
-                  <Image
-                    src="/images/about-sara.png"
-                    alt="Sara's animated photo"
-                    width={300}
-                    height={440} 
-                    className="w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px] xl:w-[440px] transition-all duration-500 ease-in-out"
-                   
-                  />
+              {/* LEFT - Image Column (lg only shows here) */}
+              <StaggerItem className="hidden lg:block">
+                <div className="relative h-full flex flex-col justify-end bg-background rounded-lg p-6">
+                  {/* Background element */}
+                  <div className="absolute -top-4 -left-4 -bottom-4 -right-4 bg-background rounded-lg -z-10"></div>
 
-                  {/* element behind image */}
-                  <div className="absolute -top-4 -left-4 -bottom-0 w-9/10  bg-background rounded-lg -z-10"></div>
+                  <div className="relative w-fit">
+                    <Image
+                      src="/images/about-sara.png"
+                      alt="Sara's animated photo"
+                      width={400}
+                      height={440}
+                      className="w-[300px] xl:w-[400px] transition-all duration-500 ease-in-out"
+                    />
+                    {/* Decorative background behind image */}
+                    <div className="absolute -top-4 -left-4 -bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
+                  </div>
                 </div>
               </StaggerItem>
+
+              {/* RIGHT - Content Column */}
               <StaggerItem>
-                {/* RIGHT col - Info */}
-                <div className="relative">
-                  <div className="absolute -top-4 -bottom-7 -left-8 lg:-left-25 lg:-right-15 bg-background rounded-lg -z-10"></div>
-                  <div className="space-y-6 ">
-                    <h2 className="text-3xl secondary-foreground leading-relaxed">
-                      <span id="about" style={{ display: "inline-block" }}>
-                        About me
-                      </span>
-                    </h2>
-                  </div>
+                <div className="relative bg-background rounded-lg p-6 lg:p-8 h-full">
+                  {/* Background element - matches height with image column on lg */}
+                  <div className="absolute -top-4 -bottom-4 -left-4 -right-4 lg:-left-8 lg:-right-15 bg-background rounded-lg -z-10"></div>
+
+                  {/* About section */}
                   <div className="space-y-6">
+                    <h2 className="text-3xl secondary-foreground leading-relaxed">
+                      <span id="about">About me</span>
+                    </h2>
+
                     <p className="text-lg secondary-foreground leading-relaxed">
                       Im a recently graduated, yet{" "}
                       <span id="passionate">passionate</span>, software
@@ -288,6 +382,7 @@ export default function HomePage() {
                       analytical mind. I strive to develop applications I can be
                       proud of with architecture and future development in mind.
                     </p>
+
                     <p className="text-lg secondary-foreground leading-relaxed">
                       When Im not coding, you can find me exploring new{" "}
                       <span id="technologies">technologies</span>, sewing
@@ -296,10 +391,35 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <div className="space-y-6 pt-5">
-                    <h2 className="text-xl secondary-foreground leading-relaxed">
-                      <span id="about">My Person</span>
-                    </h2>
+                  {/* My Person section - with image beside it on small screens */}
+                  <div className="pt-8 lg:pt-6">
+                    {/* Container for image + text on md/sm */}
+                    <div className="flex lg:block gap-4 items-start">
+                      {/* Image - only shows on md/sm, floats beside text */}
+                      <div className="lg:hidden flex-shrink-0">
+                        <div className="relative">
+                          <Image
+                            src="/images/about-sara.png"
+                            alt="Sara's animated photo"
+                            width={150}
+                            height={220}
+                            className="w-[180px] sm:w-[250px] md:w-[300px] lg:w-[450px] xl:w-[480px] transition-all duration-500 ease-in-out"
+                          />
+                          {/* Decorative background */}
+                          <div className="absolute -top-2 -left-2 -bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
+                        </div>
+                      </div>
+
+                      {/* My Person content */}
+                      <div className="space-y-4 flex-1">
+                        <h2 className="text-xl secondary-foreground leading-relaxed">
+                          <span id="person">My Person</span>
+                        </h2>
+                        <p className="text-lg secondary-foreground leading-relaxed">
+                          {/* Your personality text goes here */}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </StaggerItem>

@@ -17,14 +17,9 @@ import {
   AtSymbolIcon,
   PhoneIcon,
   MapPinIcon,
-
 } from "@heroicons/react/24/solid";
 import { getProjects } from "@/lib/projects";
-import {
-  mySkills,
-  getSkillById,
-
-} from "@/lib/skills";
+import { mySkills, getSkillById } from "@/lib/skills";
 import { Project } from "@/types/project";
 
 interface NavItem {
@@ -46,7 +41,7 @@ const CVPage: React.FC = () => {
   useEffect(() => {
     setActiveSection("about");
 
-    // Scroll to top of content 
+    // Scroll to top of content
     if (contentContainerRef.current) {
       contentContainerRef.current.scrollTop = 0;
     }
@@ -89,7 +84,7 @@ const CVPage: React.FC = () => {
     },
   ];
 
-  // Handle navigation click 
+  // Handle navigation click
   const handleNavClick = (sectionId: string) => {
     setIsScrolling(true);
     setActiveSection(sectionId);
@@ -99,7 +94,7 @@ const CVPage: React.FC = () => {
     const container = contentContainerRef.current;
 
     if (element && container) {
-      // Get the element position 
+      // Get the element position
       const containerRect = container.getBoundingClientRect();
       const elementRect = element.getBoundingClientRect();
 
@@ -107,7 +102,7 @@ const CVPage: React.FC = () => {
       const scrollPosition =
         container.scrollTop + (elementRect.top - containerRect.top) - 32;
 
-      // Scroll the container 
+      // Scroll the container
       container.scrollTo({
         top: Math.max(0, scrollPosition),
         behavior: "smooth",
@@ -123,12 +118,12 @@ const CVPage: React.FC = () => {
   // Handle scroll to update active section
   useEffect(() => {
     const handleScroll = () => {
-      if (isScrolling) return; 
+      if (isScrolling) return;
 
       const container = contentContainerRef.current;
       if (!container) return;
 
-      const scrollPosition = container.scrollTop + 100; 
+      const scrollPosition = container.scrollTop + 100;
 
       // Find which section is currently in view
       for (const item of navItems) {
@@ -154,10 +149,10 @@ const CVPage: React.FC = () => {
   }, [isScrolling, navItems]);
 
   return (
-    <div className="h-screen bg-background overflow-hidden">
-      <div className="h-19/20 max-w-7xl mx-auto p-4 md:p-8 items-center justify-center">
-        <div className="h-full bg-card rounded-2xl shadow-xl overflow-hidden">
-          <div className="flex flex-col md:flex-row h-full bg-card">
+    <div className="min-h-screen bg-background md:h-screen md:overflow-hidden">
+      <div className="min-h-screen md:h-19/20 max-w-7xl mx-auto p-4 md:p-8 items-center justify-center">
+        <div className="min-h-screen md:h-full bg-card rounded-2xl shadow-xl md:overflow-hidden">
+          <div className="flex flex-col md:flex-row min-h-screen md:h-full bg-card">
             {/* Sidebar */}
             <div className="md:w-80 bg-secondary text-white md:overflow-y-auto flex-shrink-0">
               {/* Mobile menu toggle */}
@@ -239,7 +234,7 @@ const CVPage: React.FC = () => {
             {/* Main Content - Scrollable */}
             <div
               ref={contentContainerRef}
-              className="flex-1 overflow-y-auto scroll-smooth bg-card"
+              className="flex-1 md:overflow-y-auto md:scroll-smooth bg-card"
             >
               <div className="p-8 md:p-12">
                 <div className="max-w-3xl space-y-16">
@@ -591,7 +586,6 @@ const CVPage: React.FC = () => {
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </section>
 
