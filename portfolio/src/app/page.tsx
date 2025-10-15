@@ -48,13 +48,13 @@ export default function HomePage() {
     setIsClient(true);
     const hasSeenModal = localStorage.getItem("welcomeModalSeen");
     
-    console.log("Has seen modal:", hasSeenModal); 
+    console.log("Has seen modal:", hasSeenModal); // Debug log
     
     if (!hasSeenModal) {
       // First time visitor - show modal
       setShowModal(true);
     } else {
-      
+      // User has seen modal before - skip it and start animations immediately
       setStartAnimations(true);
     }
   }, []);
@@ -148,7 +148,7 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.5 }
     );
 
     const aboutSection = document.querySelector("section:nth-of-type(2)");

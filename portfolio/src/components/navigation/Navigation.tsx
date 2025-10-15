@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import BubbleMenu from "@/components/ui/BubbleMenu";
+import {useRouter} from "next/navigation"; 
 
 const items = [
   {
@@ -41,7 +42,11 @@ const items = [
   }
 ];
 
+
 export default function Navigation() {
+    const handleNavClick = () => {
+    sessionStorage.setItem("hasNavigated", "true");
+  };
   return (
     <>
       {/* NAVIGATION BAR BACKGROUND */}
@@ -52,7 +57,7 @@ export default function Navigation() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo/Name*/}
-            <Link href="/" className="text-xl font-bold text-white">
+            <Link href="/" className="text-xl font-bold text-white" onClick={handleNavClick}>
               Saras Portfolio
             </Link>
 
@@ -61,24 +66,28 @@ export default function Navigation() {
               <Link
                 href="/"
                 className="text-white hover:text-blue-400 transition-colors"
+                onClick={handleNavClick}
               >
                 Home
               </Link>
               <Link
                 href="/projects"
                 className="text-white hover:text-blue-400 transition-colors"
+                onClick={handleNavClick}
               >
                 Projects
               </Link>
               <Link
                 href="/cv2"
                 className="text-white hover:text-blue-400 transition-colors"
+                onClick={handleNavClick}
               >
                 CV
               </Link>
               <Link
                 href="/contact"
                 className="text-white hover:text-blue-400 transition-colors"
+                onClick={handleNavClick}
               >
                 Contact
               </Link>
