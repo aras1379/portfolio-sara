@@ -21,6 +21,9 @@ import {
 import { getProjects } from "@/lib/projects";
 import { mySkills, getSkillById } from "@/lib/skills";
 import { Project } from "@/types/project";
+import { ProjectGrid, ProjectPopUp } from "@/components/sections/ProjectComponents";
+
+import {workExperiences} from "@/lib/works";
 
 interface NavItem {
   id: string;
@@ -32,11 +35,13 @@ const CVPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("about");
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // Refs for sections
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const contentContainerRef = useRef<HTMLDivElement>(null);
   const [projects, setProjects] = useState<Project[]>([]);
+  
 
   useEffect(() => {
     setActiveSection("about");
@@ -149,10 +154,10 @@ const CVPage: React.FC = () => {
   }, [isScrolling, navItems]);
 
   return (
-    <div className="min-h-screen bg-background md:h-screen md:overflow-hidden">
-      <div className="min-h-screen md:h-19/20 max-w-7xl mx-auto p-4 md:p-8 items-center justify-center">
-        <div className="min-h-screen md:h-full bg-card rounded-2xl shadow-xl md:overflow-hidden">
-          <div className="flex flex-col md:flex-row min-h-screen md:h-full bg-card">
+    <div className="min-h-screen bg-background md:h-screen md:overflow-hidden md:flex md:items-center md:justify-center">
+      <div className="min-h-screen md:min-h-0 md:h-[87vh] max-w-7xl mx-auto p-0 md:pb-8">
+        <div className="h-full bg-card rounded-2xl shadow-xl overflow-hidden">
+          <div className="flex flex-col md:flex-row h-full bg-card">
             {/* Sidebar */}
             <div className="md:w-80 bg-secondary text-white md:overflow-y-auto flex-shrink-0">
               {/* Mobile menu toggle */}
@@ -183,10 +188,14 @@ const CVPage: React.FC = () => {
                   Sara Ljung
                 </h1>
                 <p className="text-emerald-900 mb-3">Software Engineer</p>
-                <button className="flex items-center gap-2 mb-2 mx-auto text-card px-4 py-2 bg-primary hover:bg-orange-300 rounded-lg transition-colors">
+                <a
+                  href="/cv-sara_ljung-eng.pdf"
+                  download="Sara_Ljung_CV.pdf"
+                  className="flex items-center justify-center w-7/10 gap-2 mb-2 mx-auto text-white px-4 py-2 bg-primary hover:bg-orange-300 rounded-lg transition-colors"
+                >
                   <DownloadIcon className="w-4 h-4" />
                   Download CV
-                </button>
+                </a>
               </div>
 
               {/* Navigation */}
@@ -266,8 +275,8 @@ const CVPage: React.FC = () => {
                         I find coding being a deeper way into that.
                       </p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div className="bg-gradient-to-r from-teal-50 to-green-50 p-6 rounded-xl">
+                      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 mb-8">
+                        <div className="bg-muted p-6 rounded-xl">
                           <h3 className="font-semibold text-card-foreground mb-2 text-center">
                             Key Strengths
                           </h3>
@@ -280,52 +289,44 @@ const CVPage: React.FC = () => {
                           </ul>
                         </div>
 
-                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
+                        <div className="bg-muted p-6 rounded-xl">
                           <h3 className="font-semibold text-card-foreground mb-2 text-center">
                             Programming Compentencies
                           </h3>
-                          <div className="grid grid-cols-2 md:grid-cols-2 gap-6 mb-8">
-                            <div>
-                              <h3 className="font-semibold text-card-foreground mb-2">
-                                Languages
-                              </h3>
-                              <ul className="space-y-2 text-gray-600">
-                                <li>• Python</li>
-                                <li>• C++</li>
-                                <li>• Java </li>
-                                <li>• JavaScript </li>
-                                <li>• TypeScript </li>
-                              </ul>
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-card-foreground mb-2">
-                                Tools & Frameworks
-                              </h3>
-                              <ul className="space-y-2 text-gray-600">
-                                <li>• Git</li>
-                                <li>• Docker</li>
-                                <li>• Selenium</li>
-                              </ul>
-                            </div>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-2">
+                            {mySkills.map((category) => (
+      <div key={category.label}>
+        <h4 className="font-semibold text-gray-700 mb-2">
+          {category.label}
+        </h4>
+        <ul className="space-y-1 text-gray-600 text-sm">
+          {category.skills
+          .filter(skill => skill.featured)
+          .map((skill) => (
+            <li key={skill.id}>• {skill.label}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
                           </div>
                         </div>
                       </div>
 
                       <div className="flex gap-4">
                         <a
-                          href="#"
+                          href="https://github.com/aras1379"
                           className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                         >
                           <Github className="w-5 h-5 text-gray-700" />
                         </a>
                         <a
-                          href="#"
+                          href="https://www.linkedin.com/in/sara-ljung-723691285/"
                           className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                         >
                           <Linkedin className="w-5 h-5 text-gray-700" />
                         </a>
                         <a
-                          href="#"
+                          href="https://saraljung.site/cv2"
                           className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
                         >
                           <GlobeIcon className="w-5 h-5 text-gray-700" />
@@ -342,152 +343,86 @@ const CVPage: React.FC = () => {
                     id="experience"
                     className="scroll-mt-8"
                   >
+
                     <h2 className="text-3xl font-bold text-card-foreground mb-6">
                       Work Experiences
                     </h2>
                     <div className="space-y-8">
-                      <div className="border-l-4 border-teal-500 pl-6">
-                        <h3 className="text-xl font-semibold text-gray-800">
-                          Software Developer
-                        </h3>
+                      {workExperiences.map((experience) => (
+                        <div key={experience.id} className="border-l-4 border-teal-500 pl-6 bg-muted p-4 rounded-lg"> 
+                        <h3 className="text-xl font-semibold text-ring">
+                          {experience.title}
+                          </h3>
                         <p className="text-teal-600 font-medium mb-2">
-                          Knowit Connectivity
-                        </p>
-                        <p className="text-gray-500 text-sm mb-3">
-                          Augusti 2025 - Oktober 2025
-                        </p>
-                        <ul className="space-y-2 text-gray-600">
-                          <li>
-                            • Developed backend communication to LLM,
-                            implemented scoring algorithm based on LLM output
-                            and structured output for API
-                          </li>
-                          <li>• Flexicharge</li>
-                          <li>• Agile</li>
-                        </ul>
+                          {experience.company}</p>
+                        <p className="text-secondary-foreground text-sm mb-3">
+                          {experience.startDate} - {experience.endDate}</p>
+                          <ul className="space-y-2 text-ring">
+                          {experience.description.map((desc, index) => (
+                            <li key={index}>• {desc}</li>
+                          ))}
+                          </ul>
+                            {experience.pdfUrl && (
+                              <div className="flex justify-end">
+      <a
+        href={experience.pdfUrl}
+        download="Sara-Ljung_Bachelor-Thesis.pdf"
+        className="mt-0 inline-flex items-center gap-2 bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors"
+      >
+        <DownloadIcon className="w-4 h-4" />
+        Download Thesis
+      </a>
+      </div>
+    )}
+                    </div>  
+                      ))}
                       </div>
 
-                      <div className="border-l-4 border-blue-500 pl-6">
-                        <h3 className="text-xl font-semibold text-gray-800">
-                          Bachelor Thesis
-                        </h3>
-                        <p className="text-blue-600 font-medium mb-2">
-                          Knowit Connectivity
-                        </p>
-                        <p className="text-gray-500 text-sm mb-3">
-                          January 2025 - May 2025
-                        </p>
-                        <ul className="space-y-2 text-gray-600">
-                          <li>
-                            • Compared AI-models speech vs. text-based emotion
-                            analysis with extracted voice features
-                          </li>
-                          <li>
-                            • Categorisation of voice features and comprehensive
-                            statistical analysis in Python
-                          </li>
-                          <li>• Writing</li>
-                        </ul>
-                      </div>
-
-                      <div className="border-l-4 border-purple-500 pl-6">
-                        <h3 className="text-xl font-semibold text-gray-800">
-                          Internship
-                        </h3>
-                        <p className="text-purple-600 font-medium mb-2">
-                          Knowit Connectivity
-                        </p>
-                        <p className="text-gray-500 text-sm mb-3">
-                          March 2024 - May 2024
-                        </p>
-                        <ul className="space-y-2 text-gray-600">
-                          <li>
-                            • Built mobile application with controller in
-                            Flutter
-                          </li>
-                          <li>
-                            • Communication with WebSockets to backend and robot
-                          </li>
-                          <li>• Worked according to Scrum</li>
-                        </ul>
-                      </div>
-
-                      <div className="border-l-4 border-purple-500 pl-6">
-                        <h3 className="text-xl font-semibold text-gray-800">
-                          Study Coach
-                        </h3>
-                        <p className="text-purple-600 font-medium mb-2">
-                          Allakando
-                        </p>
-                        <p className="text-gray-500 text-sm mb-3">
-                          August 2022 - November 2024
-                        </p>
-                        <ul className="space-y-2 text-gray-600">
-                          <li>• Mathematics</li>
-                          <li>• Coaching, teaching and support </li>
-                        </ul>
-                      </div>
-
-                      <div className="border-l-4 border-purple-500 pl-6">
-                        <h3 className="text-xl font-semibold text-gray-800">
-                          Support Assistant
-                        </h3>
-                        <p className="text-purple-600 font-medium mb-2">
-                          Jönköpings Kommun
-                        </p>
-                        <p className="text-gray-500 text-sm mb-3">
-                          August 2022 - November 2024
-                        </p>
-                        <ul className="space-y-2 text-gray-600">
-                          <li>• Mathematics</li>
-                          <li>• Coaching, teaching and support </li>
-                        </ul>
-                      </div>
-                    </div>
                   </section>
 
                   {/* Projects Section */}
-                  <section
-                    ref={(el) => {
-                      sectionRefs.current["projects"] = el;
-                    }}
-                    id="projects"
-                    className="scroll-mt-8"
-                  >
-                    <h2 className="text-3xl font-bold text-card-foreground mb-6">
-                      Projects
-                    </h2>
-                    <div className="grid gap-8">
-                      {projects
-                        .filter((p) => p.featured)
-                        .map((project) => (
-                          <div
-                            key={project.id}
-                            className="bg-gradient-to-r from-teal-50 to-green-50 p-6 rounded-xl shadow-sm"
-                          >
-                            <h3 className="text-xl font-semibold text-card-foreground mb-2">
-                              {project.title}
-                            </h3>
-                            <p className="text-gray-600 mb-4">
-                              {project.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2">
-                              {project.techStack.map((skillId) => {
-                                const skill = getSkillById(skillId);
-                                return skill ? (
-                                  <span
-                                    key={skill.id}
-                                    className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-medium"
-                                  >
-                                    {skill.label}
-                                  </span>
-                                ) : null;
-                              })}
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  </section>
+<section
+  ref={(el) => {
+    sectionRefs.current["projects"] = el;
+  }}
+  id="projects"
+  className="scroll-mt-8"
+>
+  <h2 className="text-3xl font-bold text-card-foreground mb-6">
+    Projects
+  </h2>
+  <div className="grid gap-8">
+    {projects
+      .filter((p) => p.featured)
+      .map((project) => (
+        <div
+          key={project.id}
+          className="bg-muted p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow"
+          onClick={() => setSelectedProject(project)} // Add this
+        >
+          <h3 className="text-xl font-semibold text-card-foreground mb-2">
+            {project.title}
+          </h3>
+          <p className="text-gray-600 mb-4">
+            {project.description}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {project.techStack.map((skillId) => {
+              const skill = getSkillById(skillId);
+              return skill ? (
+                <span
+                  key={skill.id}
+                  className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm font-medium"
+                >
+                  {skill.label}
+                </span>
+              ) : null;
+            })}
+          </div>
+        </div>
+      ))}
+  </div>
+</section>
 
                   {/* Competencies Section */}
                   <section
@@ -543,7 +478,7 @@ const CVPage: React.FC = () => {
                       Education
                     </h2>
                     <div className="space-y-6">
-                      <div className="bg-gradient-to-r from-teal-50 to-green-50 p-6 rounded-xl">
+                      <div className="bg-muted p-6 rounded-xl">
                         <div className="flex items-start gap-4">
                           <div className="p-3 bg-teal-100 rounded-lg">
                             <AcademicCapIcon className="w-6 h-6 text-teal-600" />
@@ -567,7 +502,7 @@ const CVPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="bg-gradient-to-r from-teal-50 to-green-50 p-6 rounded-xl">
+                      <div className="bg-muted p-6 rounded-xl">
                         <div className="flex items-start gap-4">
                           <div className="p-3 bg-teal-100 rounded-lg">
                             <AcademicCapIcon className="w-6 h-6 text-teal-600" />
@@ -713,6 +648,14 @@ const CVPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Project Popup */}
+    {selectedProject && (
+      <ProjectPopUp
+        project={selectedProject}
+        isOpen={true}
+        onClose={() => setSelectedProject(null)}
+      />
+    )}
     </div>
   );
 };

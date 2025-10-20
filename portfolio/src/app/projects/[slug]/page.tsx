@@ -4,8 +4,7 @@ import { getProject, getProjects } from "@/lib/projects";
 import { getSkillById } from "@/lib/skills";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-
-// static paths for all projects
+import Image from "next/image";
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((project) => ({
@@ -27,7 +26,6 @@ export default async function ProjectPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
@@ -41,7 +39,6 @@ export default async function ProjectPage({
 
       {/* Project Content */}
       <div className="max-w-4xl mx-auto px-4 py-8">
-
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="mb-4">
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
@@ -55,6 +52,35 @@ export default async function ProjectPage({
             {project.description}
           </p>
         </div>
+
+        {/* Image Gallery */}
+        {project.gallery && project.gallery.length > 0 && (
+          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900">Gallery</h2>
+            <div className="relative">
+              <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                {project.gallery.map((image, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 snap-center"
+                  >
+                    <div className="relative h-64 w-auto rounded-lg overflow-hidden bg-gray-100">
+                      <Image
+                        src={image}
+                        alt={`${project.title} - Image ${index + 1}`}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        className="h-full w-auto object-contain hover:scale-105 transition-transform duration-300"
+                        style={{ width: 'auto', height: '256px' }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}

@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { getSkillById, type Skill } from "@/lib/skills";
 import { Project } from "@/types/project";
+import Image from "next/image";
 
 // ============================================
 // PROJECT CARD COMPONENT
@@ -136,7 +137,7 @@ export const ProjectGrid = ({
 
 interface TechStackDisplayProps {
   techStack: string[];
-  variant?: 'pills' | 'bars' | 'minimal';
+  variant?: 'pills' | 'bars' | 'minimal' | 'grid';
   showProficiency?: boolean;
 }
 
@@ -169,7 +170,7 @@ export const TechStackDisplay = ({
     return (
       <div className="space-y-3">
         {skills.map((skill) => (
-          <div key={skill.id}>
+          <div key={skill.id} className="bg-gray-50 px-3 py-1 rounded">
             <div className="flex justify-between mb-1">
               <span className="text-sm font-medium text-gray-700">{skill.label}</span>
               {showProficiency && (
@@ -180,6 +181,34 @@ export const TechStackDisplay = ({
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full transition-all"
+                  style={{ width: `${skill.proficiency}%` }}
+                />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (variant === 'grid') {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {skills.map((skill) => (
+          <div
+            key={skill.id}
+            className="bg-gray-50 px-3 py-2 rounded"
+          >
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm font-medium text-gray-700">{skill.label}</span>
+              {showProficiency && (
+                <span className="text-xs text-gray-500">{skill.proficiency}%</span>
+              )}
+            </div>
+            {showProficiency && (
+              <div className="w-full bg-gray-200 rounded-full h-1.5">
+                <div
+                  className="bg-blue-500 h-1.5 rounded-full transition-all"
                   style={{ width: `${skill.proficiency}%` }}
                 />
               </div>
@@ -204,7 +233,6 @@ export const TechStackDisplay = ({
     </div>
   );
 };
-
 // ============================================
 // PROJECT MODAL COMPONENT
 // ============================================
@@ -232,57 +260,155 @@ export const ProjectPopUp = ({ project, isOpen, onClose }: ProjectPopUpProps) =>
   }, [isOpen]);
 
   return (
-    
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-white/30">
-      <div  className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[85vh] overflow-y-auto">
-        {/* Close button */}
-        <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-white rounded-lg shadow-2xl max-w-5xl w-full max-h-[75vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header with close button */}
+        <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center z-10">
           <h2 className="text-2xl font-bold text-gray-800">{project.title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
+            className="text-gray-500 hover:text-gray-700 transition-colors"
           >
-            ×
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </div>
 
         {/* Modal content */}
-        <div className="p-6">
-          {project.imageUrl && (
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-64 object-cover rounded-lg mb-6"
-            />
-          )}
+        <div className="p-6 grid grid-rows-auto gap-6">
+       {/* Project Header */}
+<div className="mb-6">
+  <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
+    {/* Left side - Description */}
+    <div>
 
-          <p className="text-gray-600 mb-6">{project.description}</p>
+      <p className="text-lg text-gray-600 leading-relaxed">
+        {project.description}
+      </p>
+    </div>
 
-          {/* Tech Stack */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3">Technologies Used</h3>
+    {/* Right side - Icon button (small column) */}
+    {project.githubUrl && (
+      <a
+        href={project.githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-10 h-10 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+      >
+        <Image
+          src="/github-mark/github-mark.png"
+          alt="GitHub Logo"
+          width={20}
+          height={20}
+        />
+      </a>
+    )}
+  </div>
+</div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 space-y-4 space-x-7">
+             {/* Features */}
+              {project.features && project.features.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">
+                    Features
+                  </h3>
+                  <ul className="space-y-2">
+                    {project.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-blue-600 mr-3 mt-1">•</span>
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {/* Project Info */}
+              <div>
+                <h3 className="text-lg font-bold mb-3 text-gray-900">
+                  Project Info
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Category:</span>
+                    <span className="font-medium capitalize">
+                      {project.category}
+                    </span>
+                  </div>
+                  {project.duration && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Duration:</span>
+                      <span className="font-medium">{project.duration}</span>
+                    </div>
+                  )}
+                  {project.status && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Status:</span>
+                      <span className="font-medium capitalize">
+                        {project.status}
+                      </span>
+                    </div>
+                  )}
+                </div>
+               
+              </div>
+              <div className="pl-5">
+              {/* Tech Stack */}
+            <h3 className="text-lg font-bold mb-3 text-gray-900">
+              Tech Stack
+            </h3>
             <TechStackDisplay
               techStack={project.techStack}
-              variant="pills"
-              showProficiency={false}
+              variant="bars"
+              showProficiency={true}
             />
-          </div>
-
-          {/* Project details */}
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <span className="font-semibold">Category:</span>{" "}
-              <span className="capitalize">{project.category}</span>
             </div>
-            {project.duration && (
-              <div>
-                <span className="font-semibold">Duration:</span> {project.duration}
-              </div>
-            )}
+              
           </div>
 
-          {/* Links if available */}
- 
+
+          <div>
+             {/* Image Gallery */}
+          {project.gallery && project.gallery.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">Gallery</h3>
+              <div className="relative">
+                <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
+                  {project.gallery.map((image, index) => (
+                    <div key={index} className="flex-shrink-0 snap-center">
+                      <div className="relative h-64 w-auto rounded-lg overflow-hidden bg-gray-100">
+                        <img
+                          src={image}
+                          alt={`${project.title} - Image ${index + 1}`}
+                          className="h-64 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          </div>
+
+
         </div>
       </div>
     </div>

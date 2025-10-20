@@ -283,7 +283,7 @@ export default function HomePage() {
                     </Link>
 
                     <Link
-                      href="/projects"
+                      href="/cv2"
                       className="w-28 h-28 flex items-center justify-center rounded-full border-2 border-background bg-secondary text-center text-white text-lg hover:bg-primary transition-all duration-300 hover:scale-105"
                     >
                       Read CV
