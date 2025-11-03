@@ -47,7 +47,7 @@ export const ProjectCard = ({
       </h3>
       <p className="text-gray-600 mb-4 text-sm">{project.description}</p>
 
-      {/* TechStack Tags */}
+      {/* Tech stack */}
       {showTechStack && (
         <div className="flex flex-wrap gap-2 mb-4">
           {project.techStack.slice(0, maxTechShown).map((skillId) => {
@@ -69,7 +69,6 @@ export const ProjectCard = ({
         </div>
       )}
 
-      {/* Project Meta data */}
       <div className="text-sm text-gray-600">
         <span className="capitalize">{project.category}</span>
         {project.duration && <span> • {project.duration}</span>}

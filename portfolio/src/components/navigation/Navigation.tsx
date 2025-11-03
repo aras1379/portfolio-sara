@@ -11,7 +11,7 @@ const items = [
     href: "/",
     ariaLabel: "Home",
     rotation: -8,
-    hoverStyles: { bgColor: "#F9C0AB", textColor: "#ffffff" },
+    hoverStyles: { bgColor: "#f1d697", textColor: "#ffffff" },
   },
 
   {
@@ -19,14 +19,14 @@ const items = [
     href: "/projects",
     ariaLabel: "Projects",
     rotation: 8,
-    hoverStyles: { bgColor: "#A8CD89", textColor: "#ffffff" },
+    hoverStyles: { bgColor: "#F9C0AB", textColor: "#ffffff" },
   },
   {
     label: "cv",
     href: "/cv2",
     ariaLabel: "CV",
     rotation: 8,
-    hoverStyles: { bgColor: "#f1d697", textColor: "#ffffff" },
+    hoverStyles: { bgColor: "#A8CD89", textColor: "#ffffff" },
   },
 ];
 
@@ -89,20 +89,17 @@ export default function Navigation() {
           }
         }
       `}</style>
-      {/* NAVIGATION BAR BACKGROUND */}
+      {/* nav bar background */}
       <div
         className={`fixed top-0 left-0 right-0 h-16 bg-primary z-1 transition-all duration-300 
-        ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-0"}`}
+        ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-60"}`}
       ></div>
-
-      {/* NAVIGATION BAR */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
         ${isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         <div className="w-full px-10">
           <div className="flex justify-between items-center h-16">
-            {/* Logo/Name*/}
             <Link
               href="/"
               className="text-xl font-bold text-white"
@@ -111,13 +108,13 @@ export default function Navigation() {
               Saras Portfolio
             </Link>
 
-            {/* Navigation Links - Desktop */}
+            {/* Desktop */}
             <div className="hidden md:flex space-x-8">
               <Link
                 href="/"
                 className={`transition-colors ${
                   isActive("/")
-                    ? "text-foreground font-semibold"
+                    ? "text-background font-semibold"
                     : "text-white hover:text-blue-400"
                 }`}
                 onClick={handleNavClick}
@@ -133,13 +130,13 @@ export default function Navigation() {
                 }`}
                 onClick={handleNavClick}
               >
-                Projects
+                Portfolio
               </Link>
               <Link
                 href="/cv2"
                 className={`transition-colors ${
                   isActive("/cv2")
-                    ? "text-foreground font-semibold"
+                    ? "text-secondary-foreground font-bold"
                     : "text-white hover:text-blue-400"
                 }`}
                 onClick={handleNavClick}
@@ -176,8 +173,8 @@ export default function Navigation() {
           key={forceCloseMenu}
           items={items}
           menuAriaLabel="Toggle navigation"
-          menuBg="#ffffff"
-          menuContentColor="#111111"
+          menuBg="rgba(247, 174, 147, 1)"
+          menuContentColor="rgba(241, 229, 199, 1)"
           useFixedPosition={true}
           animationEase="back.out(1.5)"
           animationDuration={0.5}

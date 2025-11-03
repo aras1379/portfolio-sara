@@ -298,16 +298,18 @@ export default function SkillsFullDisplay({
 
   return (
     <section ref={sectionRef} className="py-20">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center mb-12">
-          <div>
-            <h2 className="text-4xl font-bold text-gray-800 mb-2">
-              Skills & Expertise
-            </h2>
-            <p className="text-gray-600">
+      
+      <div className="max-w-6xl mx-auto px-4 bg-background p-8 rounded-lg shadow-md">
+
+        <div className="flex flex-col items-center mb-12">
+     
+            <h4 className="text-3xl font-semibold text-secondary-foreground mb-4 text-center">
+            Skills and Techniques
+          </h4>
+            <p className="text-primary-foreground text-center">
               My proficiency across different technology domains
             </p>
-          </div>
+        
           
           {showToggle && (
             <div className="flex gap-1 bg-white rounded-lg p-1 shadow-sm">

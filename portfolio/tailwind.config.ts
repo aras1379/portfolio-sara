@@ -30,6 +30,10 @@ export default {
           DEFAULT: "var(--muted)",
           foreground: "var(--muted-foreground)",
         },
+        active: {
+          DEFAULT: "var(--active)",
+          foreground: "var(--active-foreground)"
+        },
       },
     },
   },

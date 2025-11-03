@@ -23,8 +23,6 @@ export const mySkills: SkillCategory[] = [
     color: 'bg-blue-500',
     skills: [
       { id: 'react', label: 'React', proficiency: 40 , featured: true},
-      { id: 'next-js', label: 'Next.js', proficiency: 35, featured: true },
-      { id: 'typescript', label: 'TypeScript', proficiency: 35, featured: true },
       { id: 'tailwind-css', label: 'Tailwind CSS', proficiency: 40, featured: true },
       { id: 'css', label: 'CSS', proficiency: 55, featured: true },
       { id: 'swift', label: 'Swift', proficiency: 60, featured: true },
@@ -32,7 +30,7 @@ export const mySkills: SkillCategory[] = [
       { id: 'dart', label: 'Dart(Flutter)', proficiency: 45, featured: true },
       { id: 'kotlin', label: 'Kotlin(Android)', proficiency: 40, featured: true },
       
-      { id: 'handlebars', label: 'Handlebars', proficiency: 30 },
+      
     ],
   },
   {
@@ -43,11 +41,19 @@ export const mySkills: SkillCategory[] = [
       { id: 'c++', label: 'C++', proficiency: 30 , featured: true },
       { id: 'typescript', label: 'TypeScript', proficiency: 35 , featured: true },
       { id: 'javascript', label: 'JavaScript', proficiency: 40 , featured: true },
-      { id: 'next-js', label: 'Next.js', proficiency: 35, featured: true  },
-      { id: 'node-js', label: 'Node.js', proficiency: 40 , featured: true },
       { id: 'websockets', label: 'WebSockets', proficiency: 45, featured: true },
       { id: 'sql', label: 'SQLite', proficiency: 40, featured: true  },
     ],
+  },
+  {
+    label: 'Fullstack Frameworks',
+    color: 'bg-purple-500',
+    skills: [
+      {id: 'next-js', label: 'Next.js', proficiency: 35, featured: true},
+      {id: 'node-js', label: 'Node.js', proficiency: 40, featured: true},
+      { id: 'handlebars', label: 'Handlebars', proficiency: 30 },
+    ]
+
   },
   {
     label: 'Tools & DevOps',

@@ -333,38 +333,35 @@ export default function HomePage() {
         className="py-20 bg-background text-secondary-foreground pt-40"
       >
         <div className="relative z-[60]">
-          <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="max-w-6xl mx-auto px-4 md:px-1">
             <StaggerAnimation
               className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-1 lg:items-stretch"
               staggerDelay={0.6}
             >
-              {/* LEFT - Image*/}
-              <StaggerItem className="hidden lg:block">
-                <div className="relative h-full flex flex-col justify-end bg-background rounded-lg p-6">
-                  {/* Background element */}
-                  <div className="absolute -top-4 -left-4 -bottom-4 -right-4 bg-background rounded-lg -z-10"></div>
-
-                  <div className="relative w-fit">
-                    <Image
-                      src="/images/about-sara.png"
-                      alt="Sara's animated photo"
-                      width={400}
-                      height={440}
-                      className="w-[300px] xl:w-[400px] transition-all duration-500 ease-in-out"
-                    />
+{/* LEFT - Image*/}
+<StaggerItem className="hidden lg:block">
+  <div className="relative h-full bg-background rounded-lg p-6 lg:p-8">
+    <div className="absolute -top-2 -left-4 -bottom-0 -right-4 bg-background rounded-lg -z-10"></div>
     
-                    <div className="absolute -top-4 -left-4 -bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
-                  </div>
-                </div>
-              </StaggerItem>
+    <div className="absolute -bottom-0 left-6 lg:left-8">
+      <Image
+        src="/images/about-sara.png"
+        alt="Sara's animated photo"
+        width={400}
+        height={440}
+        className="w-[300px] xl:w-[400px] transition-all duration-500 ease-in-out"
+      />
+
+      <div className="absolute -top-2 -left-4 bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
+    </div>
+  </div>
+</StaggerItem>
 
               {/* RIGHT - Content  */}
               <StaggerItem>
-                <div className="relative bg-background rounded-lg p-6 lg:p-8 h-full">
+                <div className="relative bg-background rounded-lg p-6 lg:p-6 h-full">
               
-                  <div className="absolute -top-4 -bottom-4 -left-4 -right-4 lg:-left-8 lg:-right-15 bg-background rounded-lg -z-10"></div>
-
-                  {/* About section */}
+                  <div className="absolute -top-2 -bottom-0 -left-2 -right-2 lg:-left-8 lg:-right-15 bg-background rounded-lg -z-10"></div>
                   <div className="space-y-6">
                     <h2 className="text-3xl secondary-foreground leading-relaxed">
                       <span id="about">About me</span>
@@ -408,18 +405,10 @@ export default function HomePage() {
                             height={220}
                             className="w-[180px] sm:w-[250px] md:w-[300px] lg:w-[450px] xl:w-[480px] transition-all duration-500 ease-in-out"
                           />
-                          {/* Decorative background */}
                           <div className="absolute -top-2 -left-2 -bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
                         </div>
                       </div>
 
-                      <div className="space-y-4 flex-1">
-                        <h2 className="text-xl secondary-foreground leading-relaxed">
-                          <span id="person">{/* TODO WRITE SOMETHING HERE */}</span>
-                        </h2>
-                        <p className="text-lg secondary-foreground leading-relaxed">
-                        </p>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -488,17 +477,20 @@ export default function HomePage() {
             {/* Other */}
             <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
               <h3 className="text-xl font-bold mb-4 text-card-foreground">
-                Tools and Other
+                Tools and Frameworks
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-muted-foreground mb-2">
-                    
-                  </p>
-                </div>
+               
                 <div>
                   <CategoryAverageBar
                     category={mySkills[2]}
+                    isVisible={true}
+                    showSkillTags={true}
+                  />
+                </div>
+                <div>
+                  <CategoryAverageBar
+                    category={mySkills[3]}
                     isVisible={true}
                     showSkillTags={true}
                   />

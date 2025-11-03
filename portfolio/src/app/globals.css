@@ -110,6 +110,8 @@ html {
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-active: var(--active);
+  --color-active-foreground: var(--active-foreground); 
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -149,6 +151,9 @@ html {
 
   --muted: rgb(243 244 246); /* gray-100 */
   --muted-foreground: rgb(107 114 128); /* gray-500 */
+
+    --active: rgb(241, 214, 151); 
+  --active-foreground: rgb(241, 214, 151);
 
   --border: rgb(229 231 235); /* gray-200 */
   --input: rgb(229 231 235); /* gray-200 */
@@ -207,8 +212,8 @@ html {
   --card: rgb(249 246 243);
   --card-foreground: rgb(28 53 45);
 
-  --muted: rgb(243 244 246); /* gray-100 */
-  --muted-foreground: rgb(107 114 128); /* gray-500 */
+  --muted: rgb(243 244 246);
+  --muted-foreground: rgb(107 114 128);
 
   --border: rgb(166 178 139);
   --input: rgb(166 178 139);
@@ -269,7 +274,10 @@ html {
   --card-foreground: rgb(53, 95, 46);
 
   --muted: rgb(248, 239, 205);
-  --muted-foreground: rgb(107 114 128); /* gray-500 */
+  --muted-foreground: rgb(107 114 128);
+
+  --active: rgb(241, 214, 151); 
+  --active-foreground: rgb(241, 214, 151);
 
   --border: rgb(166 178 139);
   --input: rgb(166 178 139);
@@ -285,26 +293,38 @@ html {
 
 .light {
 
-  --background: rgb(5 46 22); /* emerald-950 */
-  --foreground: rgb(255 255 255); /* white */
-  --primary: rgb(249 250 251); /* gray-50 */
-  --primary-foreground: rgb(17 24 39); /* gray-900 */
-  --secondary: rgb(255 247 237); /* orange-50 */
-  --secondary-foreground: rgb(107 114 128); /* gray-500 */
-  --accent: rgb(59 130 246); /* blue-600 */
-  --accent-foreground: rgb(255 255 255); /* white */
-  --card: rgb(255 255 255); /* white */
-  --card-foreground: rgb(17 24 39); /* gray-900 */
-  --muted: rgb(243 244 246); /* gray-100 */
-  --muted-foreground: rgb(107 114 128); /* gray-500 */
-  --border: rgb(229 231 235); /* gray-200 */
-  --input: rgb(229 231 235); /* gray-200 */
-  --ring: rgb(59 130 246); /* blue-500 */
+  --background: rgb(244, 224, 175);
+  --foreground: rgb(249, 192, 171);
+
+  --primary: rgb(168, 205, 137);
+  --primary-foreground: rgb(28 53 45);
+
+  --secondary: rgb(249, 192, 171);
+  --secondary-foreground: rgb(53, 95, 46);
+
+  --accent: rgb(154, 186, 128);
+  --accent-foreground: rgb(28 53 45);
+
+  --buttons: rgb(198, 232, 171);
+  --buttons-foreground: rgb(53 95 46);
+
+  --card: rgb(183, 215, 161);
+  --card-foreground: rgb(53, 95, 46);
+
+  --muted: rgb(248, 239, 205);
+  --muted-foreground: rgb(107 114 128);
+
+  --active: rgb(241, 214, 151); 
+  --active-foreground: rgb(241, 214, 151);
+
+  --border: rgb(166 178 139);
+  --input: rgb(166 178 139);
+  --ring: rgb(28 53 45);
 
   /* Aurora Background Colors */
-  --aurora-color-1: #006045;
-  --aurora-color-2: #ffb86a;
-  --aurora-color-3: #d1fae5;
+  --aurora-color-1: #F9C0AB;
+  --aurora-color-2: #A8CD89;
+  --aurora-color-3: #355F2E;
 }
 
 @media (prefers-color-scheme: dark) {
