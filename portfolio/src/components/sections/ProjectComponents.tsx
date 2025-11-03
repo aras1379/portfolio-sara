@@ -17,11 +17,11 @@ interface ProjectCardProps {
   maxTechShown?: number;
 }
 
-export const ProjectCard = ({ 
-  project, 
-  onClick, 
+export const ProjectCard = ({
+  project,
+  onClick,
   showTechStack = true,
-  maxTechShown = 3 
+  maxTechShown = 3,
 }: ProjectCardProps) => {
   const handleClick = (e: React.MouseEvent) => {
     if (onClick) {
@@ -34,20 +34,18 @@ export const ProjectCard = ({
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer border border-gray-200 h-full">
       {project.imageUrl && (
         <div className="mb-4 rounded-lg overflow-hidden h-40 bg-gray-100">
-          <img 
-            src={project.imageUrl} 
+          <img
+            src={project.imageUrl}
             alt={project.title}
             className="w-full h-full object-cover"
           />
         </div>
       )}
-      
+
       <h3 className="text-xl font-semibold mb-2 text-gray-800">
         {project.title}
       </h3>
-      <p className="text-gray-600 mb-4 text-sm">
-        {project.description}
-      </p>
+      <p className="text-gray-600 mb-4 text-sm">{project.description}</p>
 
       {/* TechStack Tags */}
       {showTechStack && (
@@ -83,11 +81,7 @@ export const ProjectCard = ({
     return <div onClick={handleClick}>{content}</div>;
   }
 
-  return (
-    <Link href={`/projects/${project.slug}`}>
-      {content}
-    </Link>
-  );
+  return <Link href={`/projects/${project.slug}`}>{content}</Link>;
 };
 
 // ============================================
@@ -102,18 +96,18 @@ interface ProjectGridProps {
   columns?: 1 | 2 | 3 | 4;
 }
 
-export const ProjectGrid = ({ 
-  projects, 
+export const ProjectGrid = ({
+  projects,
   onProjectClick,
   showTechStack = true,
   maxTechShown = 3,
-  columns = 3
+  columns = 3,
 }: ProjectGridProps) => {
   const gridCols = {
-    1: 'grid-cols-1',
-    2: 'grid-cols-1 md:grid-cols-2',
-    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+    1: "grid-cols-1",
+    2: "grid-cols-1 md:grid-cols-2",
+    3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
   };
 
   return (
@@ -137,20 +131,20 @@ export const ProjectGrid = ({
 
 interface TechStackDisplayProps {
   techStack: string[];
-  variant?: 'pills' | 'bars' | 'minimal' | 'grid';
+  variant?: "pills" | "bars" | "minimal" | "grid";
   showProficiency?: boolean;
 }
 
-export const TechStackDisplay = ({ 
-  techStack, 
-  variant = 'pills',
-  showProficiency = false 
+export const TechStackDisplay = ({
+  techStack,
+  variant = "pills",
+  showProficiency = false,
 }: TechStackDisplayProps) => {
   const skills = techStack
-    .map(skillId => getSkillById(skillId))
+    .map((skillId) => getSkillById(skillId))
     .filter((skill): skill is Skill => skill !== undefined);
 
-  if (variant === 'pills') {
+  if (variant === "pills") {
     return (
       <div className="flex flex-wrap gap-2">
         {skills.map((skill) => (
@@ -166,15 +160,19 @@ export const TechStackDisplay = ({
     );
   }
 
-  if (variant === 'bars') {
+  if (variant === "bars") {
     return (
       <div className="space-y-3">
         {skills.map((skill) => (
           <div key={skill.id} className="bg-gray-50 px-3 py-1 rounded">
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">{skill.label}</span>
+              <span className="text-sm font-medium text-gray-700">
+                {skill.label}
+              </span>
               {showProficiency && (
-                <span className="text-sm text-gray-500">{skill.proficiency}%</span>
+                <span className="text-sm text-gray-500">
+                  {skill.proficiency}%
+                </span>
               )}
             </div>
             {showProficiency && (
@@ -191,18 +189,19 @@ export const TechStackDisplay = ({
     );
   }
 
-  if (variant === 'grid') {
+  if (variant === "grid") {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {skills.map((skill) => (
-          <div
-            key={skill.id}
-            className="bg-gray-50 px-3 py-2 rounded"
-          >
+          <div key={skill.id} className="bg-gray-50 px-3 py-2 rounded">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-sm font-medium text-gray-700">{skill.label}</span>
+              <span className="text-sm font-medium text-gray-700">
+                {skill.label}
+              </span>
               {showProficiency && (
-                <span className="text-xs text-gray-500">{skill.proficiency}%</span>
+                <span className="text-xs text-gray-500">
+                  {skill.proficiency}%
+                </span>
               )}
             </div>
             {showProficiency && (
@@ -243,28 +242,32 @@ interface ProjectPopUpProps {
   onClose: () => void;
 }
 
-export const ProjectPopUp = ({ project, isOpen, onClose }: ProjectPopUpProps) => {
+export const ProjectPopUp = ({
+  project,
+  isOpen,
+  onClose,
+}: ProjectPopUpProps) => {
   // Add early return if no project
   if (!isOpen || !project) return null;
 
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
-      <div 
+      <div
         className="bg-white rounded-lg shadow-2xl max-w-5xl w-full max-h-[75vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -293,122 +296,117 @@ export const ProjectPopUp = ({ project, isOpen, onClose }: ProjectPopUpProps) =>
 
         {/* Modal content */}
         <div className="p-6 grid grid-rows-auto gap-6">
-       {/* Project Header */}
-<div className="mb-6">
-  <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
-    {/* Left side - Description */}
-    <div>
+          {/* Project Header */}
+          <div className="mb-6">
+            <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
 
-      <p className="text-lg text-gray-600 leading-relaxed">
-        {project.description}
-      </p>
-    </div>
+              <div>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  {project.description}
+                </p>
+              </div>
 
-    {/* Right side - Icon button (small column) */}
-    {project.githubUrl && (
-      <a
-        href={project.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-10 h-10 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
-      >
-        <Image
-          src="/github-mark/github-mark.png"
-          alt="GitHub Logo"
-          width={20}
-          height={20}
-        />
-      </a>
-    )}
-  </div>
-</div>
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+                >
+                  <Image
+                    src="/github-mark/github-mark.png"
+                    alt="GitHub Logo"
+                    width={20}
+                    height={20}
+                  />
+                </a>
+              )}
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 space-y-4 space-x-7">
-             {/* Features */}
-              {project.features && project.features.length > 0 && (
-                <div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900">
-                    Features
-                  </h3>
-                  <ul className="space-y-2">
-                    {project.features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-blue-600 mr-3 mt-1">•</span>
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {/* Project Info */}
+  
+            {project.features && project.features.length > 0 && (
               <div>
-                <h3 className="text-lg font-bold mb-3 text-gray-900">
-                  Project Info
+                <h3 className="text-xl font-bold mb-4 text-gray-900">
+                  Features
                 </h3>
-                <div className="space-y-2 text-sm">
+                <ul className="space-y-2">
+                  {project.features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-blue-600 mr-3 mt-1">•</span>
+                      <span className="text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {/* Project Info */}
+            <div>
+              <h3 className="text-lg font-bold mb-3 text-gray-900">
+                Project Info
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Category:</span>
+                  <span className="font-medium capitalize">
+                    {project.category}
+                  </span>
+                </div>
+                {project.duration && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Category:</span>
+                    <span className="text-gray-600">Duration:</span>
+                    <span className="font-medium">{project.duration}</span>
+                  </div>
+                )}
+                {project.status && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Status:</span>
                     <span className="font-medium capitalize">
-                      {project.category}
+                      {project.status}
                     </span>
                   </div>
-                  {project.duration && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Duration:</span>
-                      <span className="font-medium">{project.duration}</span>
-                    </div>
-                  )}
-                  {project.status && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Status:</span>
-                      <span className="font-medium capitalize">
-                        {project.status}
-                      </span>
-                    </div>
-                  )}
-                </div>
-               
-              </div>
-              <div className="pl-5">
-              {/* Tech Stack */}
-            <h3 className="text-lg font-bold mb-3 text-gray-900">
-              Tech Stack
-            </h3>
-            <TechStackDisplay
-              techStack={project.techStack}
-              variant="bars"
-              showProficiency={true}
-            />
+                )}
+              </div>s
             </div>
-              
+            <div className="pl-5">
+         
+              <h3 className="text-lg font-bold mb-3 text-gray-900">
+                Tech Stack
+              </h3>
+              <TechStackDisplay
+                techStack={project.techStack}
+                variant="bars"
+                showProficiency={true}
+              />
+            </div>
           </div>
-
 
           <div>
-             {/* Image Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Gallery</h3>
-              <div className="relative">
-                <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
-                  {project.gallery.map((image, index) => (
-                    <div key={index} className="flex-shrink-0 snap-center">
-                      <div className="relative h-64 w-auto rounded-lg overflow-hidden bg-gray-100">
-                        <img
-                          src={image}
-                          alt={`${project.title} - Image ${index + 1}`}
-                          className="h-64 w-auto object-contain hover:scale-105 transition-transform duration-300"
-                        />
+            {/* Image Gallery */}
+            {project.gallery && project.gallery.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-xl font-bold mb-4 text-gray-900">
+                  Gallery
+                </h3>
+                <div className="relative">
+                  <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory">
+                    {project.gallery.map((image, index) => (
+                      <div key={index} className="flex-shrink-0 snap-center">
+                        <div className="relative h-64 w-auto rounded-lg overflow-hidden bg-gray-100">
+                          <img
+                            src={image}
+                            alt={`${project.title} - Image ${index + 1}`}
+                            className="h-64 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
-
-
         </div>
       </div>
     </div>

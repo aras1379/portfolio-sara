@@ -80,7 +80,7 @@ export default function HomePage() {
             setTimeout(() => {
               const aboutEl = document.getElementById("about");
               const passionateEl = document.getElementById("passionate");
-              const technologiesEl = document.getElementById("technologies");
+             
               const processEl = document.getElementById("process");
               const probSolveEl = document.getElementById("prob-solve");
               const logicsEl = document.getElementById("logics");
@@ -90,8 +90,8 @@ export default function HomePage() {
                 passionateEl &&
                 processEl &&
                 probSolveEl &&
-                logicsEl &&
-                technologiesEl
+                logicsEl 
+               
               ) {
                 aboutEl.style.display = "inline-block";
                 passionateEl.style.display = "inline-block";
@@ -99,7 +99,7 @@ export default function HomePage() {
                 probSolveEl.style.display = "inline-block";
                 logicsEl.style.display = "inline-block";
 
-                technologiesEl.style.display = "inline-block";
+            
 
                 const first = annotate(aboutEl, {
                   type: "highlight",
@@ -130,17 +130,13 @@ export default function HomePage() {
                   padding: 8,
                 });
 
-                const a5 = annotate(technologiesEl, {
-                  type: "circle",
-                  color: "#fb923c",
-                  padding: 8,
-                });
+            
                 setTimeout(() => first.show(), 200);
                 setTimeout(() => a1.show(), 300);
                 setTimeout(() => a2.show(), 800);
                 setTimeout(() => a3.show(), 1300);
                 setTimeout(() => a4.show(), 1800);
-                setTimeout(() => a5.show(), 2300);
+             
               }
             }, 1000);
 
@@ -338,7 +334,7 @@ export default function HomePage() {
               className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-1 lg:items-stretch"
               staggerDelay={0.6}
             >
-              {/* LEFT - Image Column (lg only shows here) */}
+              {/* LEFT - Image*/}
               <StaggerItem className="hidden lg:block">
                 <div className="relative h-full flex flex-col justify-end bg-background rounded-lg p-6">
                   {/* Background element */}
@@ -352,16 +348,16 @@ export default function HomePage() {
                       height={440}
                       className="w-[300px] xl:w-[400px] transition-all duration-500 ease-in-out"
                     />
-                    {/* Decorative background behind image */}
+    
                     <div className="absolute -top-4 -left-4 -bottom-0 w-9/10 bg-background/50 rounded-lg -z-10"></div>
                   </div>
                 </div>
               </StaggerItem>
 
-              {/* RIGHT - Content Column */}
+              {/* RIGHT - Content  */}
               <StaggerItem>
                 <div className="relative bg-background rounded-lg p-6 lg:p-8 h-full">
-                  {/* Background element - matches height with image column on lg */}
+              
                   <div className="absolute -top-4 -bottom-4 -left-4 -right-4 lg:-left-8 lg:-right-15 bg-background rounded-lg -z-10"></div>
 
                   {/* About section */}
@@ -372,30 +368,33 @@ export default function HomePage() {
 
                     <p className="text-lg secondary-foreground leading-relaxed">
                       Im a recently graduated, yet{" "}
-                      <span id="passionate">passionate</span>, software
+                      <span id="passionate">curious</span>, and determined software
                       developer who really enjoyes the{" "}
                       <span id="process">programmering process</span> - from
                       planning and structuring to implementing both frontend and
-                      backend - especially backend. I like the{" "}
+                      backend. I like the{" "}
                       <span id="prob-solve">problem-solving</span> and{" "}
-                      <span id="logics">logics</span> since it stimulates my
-                      analytical mind. I strive to develop applications I can be
-                      proud of with architecture and future development in mind.
+                      <span id="logics">logics</span> since it stimulates 
+                      my thoughtful mind. I strive to develop applications I can be
+                      proud of with architecture and future development in mind. 
+                      I always do my very best and find the learning-process very fulfilling. 
                     </p>
 
                     <p className="text-lg secondary-foreground leading-relaxed">
-                      When Im not coding, you can find me exploring new{" "}
-                      <span id="technologies">technologies</span>, sewing
-                      clothes, climbing, puzzling, or enjoying a good cup of
-                      coffee.
+                      When Im not coding, I like to sew and knitting clothes, climbing, puzzling, 
+                      or spending time with friends and family. 
+                      I am of curious and analytical nature and like to read and learn about different subjects, 
+                      as how we eat and live impact our overall health. I like to discuss ideas and opinoins with other people,
+                      you can learn something from everyone! 
+                      
                     </p>
                   </div>
 
-                  {/* My Person section - with image beside it on small screens */}
+                   {/* My person - beside image if small screen*/}
                   <div className="pt-8 lg:pt-6">
-                    {/* Container for image + text on md/sm */}
+   
                     <div className="flex lg:block gap-4 items-start">
-                      {/* Image - only shows on md/sm, floats beside text */}
+           
                       <div className="lg:hidden flex-shrink-0">
                         <div className="relative">
                           <Image
@@ -410,13 +409,11 @@ export default function HomePage() {
                         </div>
                       </div>
 
-                      {/* My Person content */}
                       <div className="space-y-4 flex-1">
                         <h2 className="text-xl secondary-foreground leading-relaxed">
-                          <span id="person">My Person</span>
+                          <span id="person">{/* TODO WRITE SOMETHING HERE */}</span>
                         </h2>
                         <p className="text-lg secondary-foreground leading-relaxed">
-                          {/* Your personality text goes here */}
                         </p>
                       </div>
                     </div>
@@ -470,7 +467,7 @@ export default function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
                   <p className="text-muted-foreground mb-2">
-                    Building APIs and server-side applications with Node.js,
+                    Server-side applications with Node.js,
                     Python, databases, and integrating AI solutions.
                   </p>
                 </div>
@@ -484,16 +481,15 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Full Stack */}
+            {/* Other */}
             <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
               <h3 className="text-xl font-bold mb-4 text-card-foreground">
-                Full Stack and Testing
+                Tools and Other
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
                   <p className="text-muted-foreground mb-2">
-                    End-to-end application development from database design to
-                    user interface and Testing.
+                    
                   </p>
                 </div>
                 <div>
@@ -509,32 +505,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BOTTOM CONTENT */}
-      <section className="py-20 bg-secondary text-background relative z-[60]">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Interested in working with me?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Im always interested in new opportunities and exciting projects.
-          </p>
-          <div className="space-x-4">
-            <Link
-              href="/projects"
-              className="border-2 border-white bg-white text-background px-8 py-4 rounded-lg font-semibold hover:bg-primary transition-all duration-300 hover:scale-105"
-            >
-              View Projects
-            </Link>
-
-            <Link
-              href="/contact"
-              className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-background transition-all duration-300"
-            >
-              Contact Me
-            </Link>
-          </div>
-        </div>
-      </section>
+ 
     </div>
   );
 }

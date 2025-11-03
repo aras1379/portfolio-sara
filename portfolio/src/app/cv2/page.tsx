@@ -209,7 +209,7 @@ const CVPage: React.FC = () => {
                     <li key={item.id}>
                       <button
                         onClick={() => handleNavClick(item.id)}
-                        className={`w-full flex items-center gap-3 px-4 h-12 rounded-lg transition-all ${
+                        className={`w-full flex items-center gap-3 px-4 h-10 rounded-lg transition-all ${
                           activeSection === item.id
                             ? "bg-white text-teal-700 shadow-lg"
                             : "text-white/90 hover:bg-white/10"
@@ -225,15 +225,15 @@ const CVPage: React.FC = () => {
 
               {/* Contact Info */}
               <div className="px-8 pb-8 space-y-2 text-sm">
-                <div className="flex items-center gap-2 text-teal-100">
+                <div className="flex items-center gap-2 text-primary-foreground">
                   <AtSymbolIcon className="w-4 h-4" />
                   <span>ljung.sara98@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-2 text-teal-100">
+                <div className="flex items-center gap-2 text-primary-foreground">
                   <PhoneIcon className="w-4 h-4" />
                   <span>+46 70 980 21 53</span>
                 </div>
-                <div className="flex items-center gap-2 text-teal-100">
+                <div className="flex items-center gap-2 text-primary-foreground">
                   <MapPinIcon className="w-4 h-4" />
                   <span>Jönköping, Sweden</span>
                 </div>

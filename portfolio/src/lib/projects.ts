@@ -330,3 +330,4 @@ export async function getProjects(): Promise<Project[]> {
 export async function getProject(slug: string): Promise<Project | undefined> {
   return projects.find((project) => project.slug == slug);
 }
+

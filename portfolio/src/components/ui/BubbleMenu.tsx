@@ -26,6 +26,7 @@ export type BubbleMenuProps = {
   animationEase?: string;
   animationDuration?: number;
   staggerDelay?: number;
+  activeHref?: string; // Add this prop
 };
 
 const DEFAULT_ITEMS: MenuItem[] = [
@@ -78,7 +79,8 @@ export default function BubbleMenu({
   items,
   animationEase = 'back.out(1.5)',
   animationDuration = 0.5,
-  staggerDelay = 0.12
+  staggerDelay = 0.12,
+  activeHref 
 }: BubbleMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -108,6 +110,13 @@ export default function BubbleMenu({
     if (nextState) setShowOverlay(true);
     setIsMenuOpen(nextState);
     onMenuClick?.(nextState);
+  };
+
+  // Helper function to check if item is active
+  const isActive = (href: string) => {
+    if (!activeHref) return false;
+    if (href === '/' || href === '#') return activeHref === '/';
+    return activeHref.startsWith(href);
   };
 
   useEffect(() => {
@@ -344,73 +353,75 @@ export default function BubbleMenu({
             role="menu"
             aria-label="Menu links"
           >
-            {menuItems.map((item, idx) => (
+            {menuItems.map((item, idx) => {
+              const itemIsActive = isActive(item.href);
+              return (
               <li
-                key={idx}
-                role="none"
-                className={[
-                  'pill-col',
-                  'flex justify-center items-stretch',
-                  '[flex:0_0_calc(100%/3)]',
-                  'box-border'
-                ].join(' ')}
-              >
-                <a
-                  role="menuitem"
-                  href={item.href}
-                  aria-label={item.ariaLabel || item.label}
-                  className={[
-                    'pill-link',
-                    'w-full',
-                    'rounded-[999px]',
-                    'no-underline',
-                    'bg-white',
-                    'text-inherit',
-                    'shadow-[0_4px_14px_rgba(0,0,0,0.10)]',
-                    'flex items-center justify-center',
-                    'relative',
-                    'transition-[background,color] duration-300 ease-in-out',
-                    'box-border',
-                    'whitespace-nowrap overflow-hidden'
-                  ].join(' ')}
-                  style={
-                    {
-                      ['--item-rot']: `${item.rotation ?? 0}deg`,
-                      ['--pill-bg']: menuBg,
-                      ['--pill-color']: menuContentColor,
-                      ['--hover-bg']: item.hoverStyles?.bgColor || '#f3f4f6',
-                      ['--hover-color']: item.hoverStyles?.textColor || menuContentColor,
-                      background: 'var(--pill-bg)',
-                      color: 'var(--pill-color)',
-                      minHeight: 'var(--pill-min-h, 160px)',
-                      padding: 'clamp(1.5rem, 3vw, 8rem) 0',
-                      fontSize: 'clamp(1.5rem, 4vw, 4rem)',
-                      fontWeight: 400,
-                      lineHeight: 0,
-                      willChange: 'transform',
-                      height: 10
-                    } as CSSProperties
-                  }
-                  ref={el => {
-                    if (el) bubblesRef.current[idx] = el;
-                  }}
-                >
-                  <span
-                    className="pill-label inline-block"
-                    style={{
-                      willChange: 'transform, opacity',
-                      height: '1.2em',
-                      lineHeight: 1.2
-                    }}
-                    ref={el => {
-                      if (el) labelRefs.current[idx] = el;
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </a>
-              </li>
-            ))}
+  key={idx}
+  role="none"
+  className={[
+    'pill-col',
+    'flex justify-center items-stretch',
+    '[flex:0_0_calc(100%/3)]',
+    'box-border'
+  ].join(' ')}
+>
+  <a  
+    role="menuitem"
+    href={item.href}
+    aria-label={item.ariaLabel || item.label}
+    className={[
+      'pill-link',
+      'w-full',
+      'rounded-[999px]',
+      'no-underline',
+      'bg-white',
+      'text-inherit',
+      'shadow-[0_4px_14px_rgba(0,0,0,0.10)]',
+      'flex items-center justify-center',
+      'relative',
+      'transition-[background,color] duration-300 ease-in-out',
+      'box-border',
+      'whitespace-nowrap overflow-hidden'
+    ].join(' ')}
+    style={
+      {
+        ['--item-rot']: `${item.rotation ?? 0}deg`,
+        ['--pill-bg']: itemIsActive ? (item.hoverStyles?.bgColor || '#F9C0AB') : menuBg,
+        ['--pill-color']: itemIsActive ? (item.hoverStyles?.textColor || '#ffffff') : menuContentColor,
+        ['--hover-bg']: item.hoverStyles?.bgColor || '#f3f4f6',
+        ['--hover-color']: item.hoverStyles?.textColor || menuContentColor,
+        background: 'var(--pill-bg)',
+        color: 'var(--pill-color)',
+        minHeight: 'var(--pill-min-h, 160px)',
+        padding: 'clamp(1.5rem, 3vw, 8rem) 0',
+        fontSize: 'clamp(1.5rem, 4vw, 4rem)',
+        fontWeight: 400,
+        lineHeight: 0,
+        willChange: 'transform',
+        height: 10
+      } as React.CSSProperties
+    }
+    ref={el => {
+      if (el) bubblesRef.current[idx] = el;
+    }}
+  >
+    <span
+      className="pill-label inline-block"
+      style={{
+        willChange: 'transform, opacity',
+        height: '1.2em',
+        lineHeight: 1.2
+      }}
+      ref={el => {
+        if (el) labelRefs.current[idx] = el;
+      }}
+    >
+      {item.label}
+    </span>
+  </a>
+</li>
+            )})}
           </ul>
         </div>
       )}
