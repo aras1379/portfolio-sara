@@ -29,13 +29,24 @@ export default function FlowingGradient({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { 
+      alpha: true,
+      desynchronized: true // May help with performance
+    });
     if (!ctx) return;
 
+    // Detect Safari
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     const resize = () => {
       if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
     };
     resize();
@@ -117,9 +128,9 @@ export default function FlowingGradient({
       }
     }
 
-    // Create wave layers for each color
+
     const waves = colorStops.map((color, index) => 
-      new WaveLayer(color, index, colorStops.length, canvas.width, canvas.height)
+      new WaveLayer(color, index, colorStops.length, window.innerWidth, window.innerHeight)
     );
 
     let lastTime = performance.now();
@@ -129,13 +140,19 @@ export default function FlowingGradient({
       lastTime = currentTime;
       time += deltaTime * 0.001 * speed;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.filter = `blur(${blur}px)`;
+      const width = canvas.width / (window.devicePixelRatio || 1);
+      const height = canvas.height / (window.devicePixelRatio || 1);
+
+      ctx.clearRect(0, 0, width, height);
+      
+
+      const blurValue = isSafari ? blur * 1.8 : blur; 
+      ctx.filter = `blur(${blurValue}px)`;
       ctx.globalAlpha = opacity;
 
-      // Update wave sizes and draw
+ 
       waves.forEach(wave => {
-        wave.updateSize(canvas.width, canvas.height);
+        wave.updateSize(width, height);
         wave.draw(time, ctx);
       });
 
@@ -161,7 +178,14 @@ export default function FlowingGradient({
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ width: '100%', height: '100%' }}
+      style={{ 
+        width: '100%', 
+        height: '100%',
+        imageRendering: 'auto',
+        WebkitBackfaceVisibility: 'hidden',
+        WebkitPerspective: 1000,
+        WebkitTransform: 'translateZ(0)'
+      }}
     />
   );
 }

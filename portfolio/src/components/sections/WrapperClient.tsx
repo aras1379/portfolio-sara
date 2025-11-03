@@ -23,10 +23,10 @@ export default function ClientGradientWrapper() {
     <div className="fixed inset-0 pointer-events-none z-[30]">
       <FlowingGradient
         colorStops={colorStops}
-        speed={1.5}
-        blur={80}
-        opacity={0.6}
-        waveHeight={0.6}
+        speed={0.5}
+        blur={0.1}
+        opacity={0.5}
+        waveHeight={0.9}
       />
     </div>
   );

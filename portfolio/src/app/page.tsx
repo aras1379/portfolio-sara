@@ -239,16 +239,18 @@ export default function HomePage() {
               </div>
 
               {/* ROW 3 */}
-              <div className="mb-20">
-                <div className="text-1xl md:text-1xl lg:text-1xl flex">
-                  {startAnimations && (
+              <div className="mb-10 ">
+                 {startAnimations && (
+                
+                 
                     <FadeContent
                       blur={true}
-                      duration={1000}
+                      duration={10}
                       easing="ease-out"
-                      delay={3000}
+                      delay={0}
                       initialOpacity={0}
                     >
+                      <div className="text-1xl md:text-1xl lg:text-1xl flex bg-background rounded-lg p-5">
                       <h2 className="text-1xl text-primary-foreground leading-relaxed">
                         Recently graduated Data Engineer in Software Development
                         and Mobile Applications, who enjoyes programming both
@@ -256,18 +258,20 @@ export default function HomePage() {
                         learns fast and striving towards making stuff more
                         efficient while always trying to do my very best.
                       </h2>
+                    </div>
                     </FadeContent>
+                    
                   )}
-                </div>
+                
               </div>
 
               {/* ROW 4 - Buttons */}
               {startAnimations && (
                 <FadeContent
                   blur={true}
-                  duration={1000}
+                  duration={10}
                   easing="ease-out"
-                  delay={3000}
+                  delay={0}
                   initialOpacity={0}
                 >
                   <div className="grid grid-cols-3 gap-6 md:gap-14 lg:pl-10">
